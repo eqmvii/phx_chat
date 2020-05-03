@@ -14,10 +14,14 @@ services:
     ports:
       - "8001:5432"
     volumes:
-      - /var/lib/postgresql/data
+      - phx_chat_pg_data:/var/lib/postgresql/data
   # TODO: Add redis / nginx?
   # redis:
   #   image: "redis:alpine"
+
+# Created volume manually with docker volume create before using it here
+volumes:
+  phx_chat_pg_data:
 
 #########
 # Usage #
