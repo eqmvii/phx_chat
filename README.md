@@ -19,7 +19,7 @@ postgres=# CREATE DATABASE phx_chat_dev;
 CREATE DATABASE
 ```
 
-## See dbs
+## Sees the database
 
 ```
 phx_chat_dev=# \l
@@ -86,6 +86,11 @@ phx_chat_dev=# \dt
 (2) In the chat container, execute:
 
 `mix run priv/repo/seeds.exs`
+
+# Format
+
+dbash chat
+mix format mix.exs "lib/**/*.{ex,exs}" "test/**/*.{ex,exs}"
 
 = = = = = = = = = = = = = = = = = = = = = = = =
 

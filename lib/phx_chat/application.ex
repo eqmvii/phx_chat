@@ -14,7 +14,12 @@ defmodule PhxChat.Application do
       # Connect to Redis container / pod
       {Redix, host: "redis", port: 6379, name: :redix},
       # Start the PubSub system via PubSub Redis
-      {Phoenix.PubSub, adapter: Phoenix.PubSub.Redis, host: "redis", port: 6379, node_name: System.get_env("REDIS_PUBSUB_NODE_NAME"), name: PhxChat.PubSub},
+      {Phoenix.PubSub,
+       adapter: Phoenix.PubSub.Redis,
+       host: "redis",
+       port: 6379,
+       node_name: System.get_env("REDIS_PUBSUB_NODE_NAME"),
+       name: PhxChat.PubSub},
       # Start the Endpoint (http/https)
       PhxChatWeb.Endpoint
       # Start a worker by calling: PhxChat.Worker.start_link(arg)

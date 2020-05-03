@@ -3,8 +3,8 @@ defmodule PhxChat.Chat.Message do
   import Ecto.Changeset
 
   schema "messages" do
-    field :message, :string
-    field :user, :string
+    field(:message, :string)
+    field(:user, :string)
 
     timestamps()
   end
