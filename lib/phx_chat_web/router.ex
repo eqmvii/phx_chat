@@ -1,6 +1,8 @@
 defmodule PhxChatWeb.Router do
   use PhxChatWeb, :router
 
+  # alias PhxChatWeb.ChatController
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -17,6 +19,7 @@ defmodule PhxChatWeb.Router do
   scope "/", PhxChatWeb do
     pipe_through :browser
 
+    get "/chat", ChatController, :index
     live "/", PageLive, :index
   end
 

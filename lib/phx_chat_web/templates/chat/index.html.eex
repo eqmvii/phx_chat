@@ -1,0 +1,7 @@
+<h1>Chat</h1>
+
+<ul>
+  <%= for message <- @messages do %>
+    <li>[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
+  <% end %>
+</ul>
