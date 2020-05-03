@@ -6,6 +6,17 @@ Recreating a simple chat app using Phoenix Live View. An updated version of [ech
 * Docker
 * No React!
 
+# Postgres connection
+
+## Execute psql in the running postgres container
+
+docker exec -it phx_chat_postgres_1 psql -U postgres
+
+## create the expected database
+
+postgres=# CREATE DATABASE phx_chat_dev;
+CREATE DATABASE
+
 # Phoenix Boilerplate:
 
 # PhxChat

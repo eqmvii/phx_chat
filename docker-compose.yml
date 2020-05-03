@@ -1,0 +1,32 @@
+version: '2.0'
+
+services:
+  web:
+    image: phxchat1.0
+    ports:
+    - "8000:4000"
+    volumes:
+    - .:/app
+  postgres:
+    image: postgres:12.2
+    environment:
+      - POSTGRES_PASSWORD=verysecurepassword
+    ports:
+      - "8001:5432"
+    volumes:
+      - /var/lib/postgresql/data
+  # TODO: Add redis / nginx?
+  # redis:
+  #   image: "redis:alpine"
+
+#########
+# Usage #
+#########
+
+# docker-compose up -d
+
+# docker-compose down
+
+# docker logs --follow phx_chat_web_1
+
+# docker exec -it phx_chat_web_1 bash

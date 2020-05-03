@@ -3,9 +3,9 @@ use Mix.Config
 # Configure your database
 config :phx_chat, PhxChat.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "verysecurepassword",
   database: "phx_chat_dev",
-  hostname: "localhost",
+  hostname: "postgres",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
