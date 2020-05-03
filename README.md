@@ -59,7 +59,7 @@ mix ecto.gen.migration add_messages_table
 
 ## Run a migration
 
- mix ecto.migrate
+mix ecto.migrate
 
 # Phoenix Boilerplate:
 
