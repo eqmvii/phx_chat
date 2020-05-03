@@ -61,6 +61,10 @@ mix ecto.gen.migration add_messages_table
 
 mix ecto.migrate
 
+## Roll back a migration
+
+mix ecto.rollback --step 1
+
 # Phoenix Boilerplate:
 
 # PhxChat

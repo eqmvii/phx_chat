@@ -6,6 +6,7 @@ defmodule PhxChat.Repo.Migrations.AddMessagesTable do
 
   def change do
     create table("messages") do
+      add :user,       :string
       add :message,    :string
 
       timestamps()
