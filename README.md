@@ -10,12 +10,14 @@ Recreating a simple chat app using Phoenix Live View. An updated version of [ech
 
 ## Execute psql in the running postgres container
 
-docker exec -it phx_chat_postgres_1 psql -U postgres
+`docker exec -it phx_chat_postgres_1 psql -U postgres`
 
 ## create the expected database
 
+```
 postgres=# CREATE DATABASE phx_chat_dev;
 CREATE DATABASE
+```
 
 ## See dbs
 
@@ -57,25 +59,33 @@ phx_chat_dev=# \dt
 
 (preferred)
 
-mix phx.gen.context Chat Message messages user:string message:string
+`mix phx.gen.context Chat Message messages user:string message:string`
 
 ## Create a migration
 
-mix ecto.gen.migration add_messages_table
+`mix ecto.gen.migration add_messages_table`
 
 ## Run a migration
 
-mix ecto.migrate
+`mix ecto.migrate`
 
 ## Roll back a migration
 
-mix ecto.rollback --step 1
+`mix ecto.rollback --step 1`
 
 # Generators
 
 ## Messages Context
 
-mix phx.gen.context Chat Message messages user:string message:integer
+`mix phx.gen.context Chat Message messages user:string message:string`
+
+# Seed Messages
+
+(1) Ensure the database has been created via psql or otherwise
+
+(2) In the chat container, execute:
+
+`mix run priv/repo/seeds.exs`
 
 = = = = = = = = = = = = = = = = = = = = = = = =
 
