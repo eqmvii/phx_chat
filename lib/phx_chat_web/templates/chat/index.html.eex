@@ -5,3 +5,5 @@
     <li>[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
   <% end %>
 </ul>
+
+<%= live_render(@conn, PhxChatWeb.ChatLive) %>
