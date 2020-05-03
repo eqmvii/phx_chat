@@ -13,6 +13,8 @@ defmodule PhxChat.Application do
       PhxChatWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: PhxChat.PubSub},
+      # Connect to Redis container / pod
+      {Redix, host: "redis", port: 6379, name: :redix},
       # Start the Endpoint (http/https)
       PhxChatWeb.Endpoint
       # Start a worker by calling: PhxChat.Worker.start_link(arg)

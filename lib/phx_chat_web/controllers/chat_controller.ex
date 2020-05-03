@@ -7,8 +7,16 @@ defmodule PhxChatWeb.ChatController do
   # TODO ERIC: Remove most boilerplate code below that come from the generator
 
   def index(conn, _params) do
+    # Redis page view counter proof-of-concept
+    case Redix.command(:redix, ["EXISTS", "pageviews"]) do
+      {:ok, 0} -> Redix.command(:redix, ["SET", "pageviews", 1])
+      {:ok, 1} -> Redix.command(:redix, ["INCR", "pageviews"])
+    end
+
+    {:ok, page_views} = Redix.command(:redix, ["GET", "pageviews"])
+
     messages = Chat.list_messages()
-    render(conn, messages: messages)
+    render(conn, messages: messages, page_views: page_views)
   end
 
   # def new(conn, _params) do
