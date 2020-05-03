@@ -4,7 +4,9 @@ Recreating a simple chat app using Phoenix Live View. An updated version of [ech
 
 * Phoenix Live View (i.e., web sockets instead of long polling)
 * Docker
-* No React!
+* Redis
+* PostgreSQL
+* No React (or, really, any JavaScript)
 
 # Postgres connection
 
@@ -89,8 +91,10 @@ phx_chat_dev=# \dt
 
 # Format
 
+```
 dbash chat
 mix format mix.exs "lib/**/*.{ex,exs}" "test/**/*.{ex,exs}"
+```
 
 = = = = = = = = = = = = = = = = = = = = = = = =
 
