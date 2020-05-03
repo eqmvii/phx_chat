@@ -53,6 +53,12 @@ phx_chat_dev=# \dt
 
 # Migrations
 
+## Create with context
+
+(preferred)
+
+mix phx.gen.context Chat Message messages user:string message:string
+
 ## Create a migration
 
 mix ecto.gen.migration add_messages_table
@@ -64,6 +70,14 @@ mix ecto.migrate
 ## Roll back a migration
 
 mix ecto.rollback --step 1
+
+# Generators
+
+## Messages Context
+
+mix phx.gen.context Chat Message messages user:string message:integer
+
+= = = = = = = = = = = = = = = = = = = = = = = =
 
 # Phoenix Boilerplate:
 
