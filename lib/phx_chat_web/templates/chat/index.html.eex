@@ -1,9 +1,8 @@
 <h1>Chat</h1>
 
-<ul>
-  <%= for message <- @messages do %>
-    <li>[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
-  <% end %>
-</ul>
+<hr />
 
 <%= live_render(@conn, PhxChatWeb.ChatLive) %>
+
+<hr />
+(footer under live rendered chat)
