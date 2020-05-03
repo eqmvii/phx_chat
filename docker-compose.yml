@@ -7,12 +7,23 @@ services:
     - "8000:4000"
     volumes:
     - .:/app
+    environment:
+    - REDIS_PUBSUB_NODE_NAME=webapp_one
+  bizzaro_web:
+    image: phxchat1.0
+    ports:
+    - "8001:4000"
+    volumes:
+    - .:/app
+    environment:
+    - REDIS_PUBSUB_NODE_NAME=webapp_two
   postgres:
     image: postgres:12.2
     environment:
       - POSTGRES_PASSWORD=verysecurepassword
+    # pg port exposed on 8002 for local db connection
     ports:
-      - "8001:5432"
+      - "8002:5432"
     volumes:
       - phx_chat_pg_data:/var/lib/postgresql/data
   redis:

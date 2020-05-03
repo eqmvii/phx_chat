@@ -15,7 +15,7 @@ defmodule PhxChatWeb.ChatLive do
 
   @impl true
   def handle_event("send_chat", %{"message_input" => message} = wut, socket) do
-    Chat.create_message(%{user: "current_user", message: message})
+    Chat.create_message(%{user: inspect(self()), message: message})
 
     PubSub.broadcast_from(PhxChat.PubSub, self(), "chat_messages", "new_message")
 
