@@ -1,14 +1,31 @@
-<ul>
-  <%= for message <- @message_list do %>
-    <li>[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
-  <% end %>
-</ul>
+<%= if @username do %>
+
+  <ul class="message_list">
+    <%= for message <- @message_list do %>
+      <li>[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
+    <% end %>
+  </ul>
 
   <section class="phx-hero">
-  <h3>Welcome to Phoenix Live Chat!</h3>
+    <h3>Welcome to Phoenix Live Chat!</h3>
 
-  <form phx-submit="send_chat">
-    <input type="text" name="message_input" value="<%= @message %>" placeholder="Enter message" autocomplete="off"/>
-    <button type="submit" phx-disable-with="Sending...">Send Chat</button>
-  </form>
-</section>
+    <form phx-submit="send_chat">
+      <input type="text" name="message_input" value="<%= @message %>" placeholder="Enter message" autocomplete="off"/>
+      <button type="submit" phx-disable-with="Sending...">Send Chat</button>
+    </form>
+  </section>
+
+<% else %>
+
+  <section class="phx-hero">
+    <h1>Welcome to Phoenix Live Chat!</h1>
+    <p>Please choose a username</p>
+
+    <form phx-submit="login">
+      <input type="text" name="username_input" value="<%= @username %>" placeholder="Choose a name" autocomplete="off"/>
+      <button type="submit" phx-disable-with="Entering chat...">Enter Chat</button>
+    </form>
+  </section>
+
+<% end %>
+

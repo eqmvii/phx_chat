@@ -2,6 +2,11 @@
 @import "./phoenix.css";
 @import "../node_modules/nprogress/nprogress.css";
 
+/* TODO ERIC move to separate file */
+ul.message_list {
+  list-style-type: none;
+}
+
 /* LiveView specific classes for your customizations */
 .invalid-feedback {
   color: #a94442;
