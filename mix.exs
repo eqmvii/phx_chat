@@ -41,6 +41,7 @@ defmodule PhxChat.MixProject do
       {:phoenix_live_dashboard, "~> 0.2.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.12.0"},
+      {:phoenix_pubsub_redis, "~> 3.0"},
       {:phoenix, "~> 1.5.1"},
       {:plug_cowboy, "~> 2.0"},
       {:postgrex, ">= 0.0.0"},

@@ -11,10 +11,11 @@ defmodule PhxChat.Application do
       PhxChat.Repo,
       # Start the Telemetry supervisor
       PhxChatWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: PhxChat.PubSub},
       # Connect to Redis container / pod
       {Redix, host: "redis", port: 6379, name: :redix},
+      # Start the PubSub system via PubSub Redis
+      # TODO ERIC: Update node_name to something like # System.get_env("NODE")
+      {Phoenix.PubSub, adapter: Phoenix.PubSub.Redis, host: "redis", port: 6379, node_name: "onenodetorulethemall", name: PhxChat.PubSub},
       # Start the Endpoint (http/https)
       PhxChatWeb.Endpoint
       # Start a worker by calling: PhxChat.Worker.start_link(arg)
