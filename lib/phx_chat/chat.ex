@@ -21,6 +21,12 @@ defmodule PhxChat.Chat do
     Repo.all(Message)
   end
 
+  def recent_messages do
+    query = from m in Message, limit: 10, order_by: [desc_nulls_last: m.inserted_at]
+
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single message.
 

@@ -2,7 +2,7 @@
 
 <hr />
 
-<%= live_render(@conn, PhxChatWeb.ChatLive) %>
+<%= live_render(@conn, PhxChatWeb.ChatLive, session: %{"extra_session_key" => "value"}) %>
 
 <hr />
 (footer under live rendered chat)
