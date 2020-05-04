@@ -11,7 +11,7 @@ defmodule PhxChatWeb.Endpoint do
   ]
 
   socket("/socket", PhxChatWeb.UserSocket,
-    websocket: true,
+    websocket: [timeout: 45_000],
     longpoll: false
   )
 

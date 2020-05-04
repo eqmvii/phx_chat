@@ -9,6 +9,7 @@ services:
     - .:/app
     environment:
     - REDIS_PUBSUB_NODE_NAME=webapp_one
+    - PHOENIX_REDIS_URI=redis://redis:6379
   bizzaro_web:
     image: phxchat1.0
     ports:
@@ -17,6 +18,7 @@ services:
     - .:/app
     environment:
     - REDIS_PUBSUB_NODE_NAME=webapp_two
+    - PHOENIX_REDIS_URI=redis://redis:6379
   postgres:
     image: postgres:12.2
     environment:

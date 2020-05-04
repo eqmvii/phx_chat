@@ -96,6 +96,38 @@ dbash chat
 mix format mix.exs "lib/**/*.{ex,exs}" "test/**/*.{ex,exs}"
 ```
 
+# Heroku Deployment
+
+Followed steps from [https://hexdocs.pm/phoenix/heroku.html](This Guide)
+
+`heroku create eqmvii-phx-chat --buildpack hashnuke/elixir`
+
+`touch elixir_buildpack.config`
+
+`heroku buildpacks:add https://github.com/gjaldon/heroku-buildpack-phoenix-static.git`
+
+`touch phoenix_static_buildpack.config`
+
+## DB creation
+
+`heroku addons:create heroku-postgresql:hobby-dev`
+
+`heroku config:set POOL_SIZE=18`
+
+## Redis
+
+Heroku Redis added manually via Web UI
+
+`heroku config:set PHOENIX_REDIS_URI="[REDACTED]"`
+
+`heroku config:set REDIS_PUBSUB_NODE_NAME="testone"`
+
+(may need to revisit -- how to make unique for multiple servers?)
+
+## Secret Key Base
+
+`heroku config:set SECRET_KEY_BASE="[REDACTED]"`
+
 = = = = = = = = = = = = = = = = = = = = = = = =
 
 # Phoenix Boilerplate:
