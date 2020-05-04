@@ -108,6 +108,10 @@ Followed steps from [https://hexdocs.pm/phoenix/heroku.html](This Guide)
 
 `touch phoenix_static_buildpack.config`
 
+## Run Migrations
+
+`heroku run mix ecto.migrate`
+
 ## DB creation
 
 `heroku addons:create heroku-postgresql:hobby-dev`
