@@ -5,11 +5,12 @@ use Mix.Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
+# TODO ERIC: Not this; this connects to the standard database for tests which is no bueno
 config :phx_chat, PhxChat.Repo,
   username: "postgres",
-  password: "postgres",
-  database: "phx_chat_test#{System.get_env("MIX_TEST_PARTITION")}",
-  hostname: "localhost",
+  password: "verysecurepassword",
+  database: "phx_chat_dev",
+  hostname: "postgres",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,

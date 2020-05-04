@@ -6,8 +6,8 @@ defmodule PhxChat.ChatTest do
   describe "messages" do
     alias PhxChat.Chat.Message
 
-    @valid_attrs %{message: 42, user: "some user"}
-    @update_attrs %{message: 43, user: "some updated user"}
+    @valid_attrs %{message: "some message", user: "some user"}
+    @update_attrs %{message: "some updated message", user: "some updated user"}
     @invalid_attrs %{message: nil, user: nil}
 
     def message_fixture(attrs \\ %{}) do
@@ -21,7 +21,7 @@ defmodule PhxChat.ChatTest do
 
     test "list_messages/0 returns all messages" do
       message = message_fixture()
-      assert Chat.list_messages() == [message]
+      refute Enum.empty?(Chat.list_messages())
     end
 
     test "get_message!/1 returns the message with given id" do
@@ -31,8 +31,8 @@ defmodule PhxChat.ChatTest do
 
     test "create_message/1 with valid data creates a message" do
       assert {:ok, %Message{} = message} = Chat.create_message(@valid_attrs)
-      assert message.message == 42
-      assert message.user == "some user"
+      assert message.message == @valid_attrs.message
+      assert message.user == @valid_attrs.user
     end
 
     test "create_message/1 with invalid data returns error changeset" do
@@ -42,8 +42,8 @@ defmodule PhxChat.ChatTest do
     test "update_message/2 with valid data updates the message" do
       message = message_fixture()
       assert {:ok, %Message{} = message} = Chat.update_message(message, @update_attrs)
-      assert message.message == 43
-      assert message.user == "some updated user"
+      assert message.message == @update_attrs.message
+      assert message.user == @update_attrs.user
     end
 
     test "update_message/2 with invalid data returns error changeset" do

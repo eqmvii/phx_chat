@@ -132,6 +132,10 @@ Heroku Redis added manually via Web UI
 
 `heroku config:set SECRET_KEY_BASE="[REDACTED]"`
 
+# Testing
+
+bash into the container (`dbash chat`), then `mix test`
+
 = = = = = = = = = = = = = = = = = = = = = = = =
 
 # Phoenix Boilerplate:
