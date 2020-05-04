@@ -21,9 +21,6 @@ services:
     image: postgres:12.2
     environment:
       - POSTGRES_PASSWORD=verysecurepassword
-    # pg port exposed on 8002 for local db connection
-    ports:
-      - "8002:5432"
     volumes:
       - phx_chat_pg_data:/var/lib/postgresql/data
   redis:
