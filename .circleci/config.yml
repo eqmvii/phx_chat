@@ -1,0 +1,29 @@
+# Elixir CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-elixir/ for more details
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version here
+      - image: circleci/elixir:1.8.2
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # TODO ERIC: Revisit pg image for seeding and testing the test DB
+      # - image: circleci/postgres:12.2
+
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      # specify any bash command here prefixed with `run: `
+      - run: echo "hello, world! I am in $(pwd). I see the following files $(ls)"
+      - run: mix local.hex --force  # install Hex locally (without prompt)
+      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
+      - run: mix deps.get
+      - run: mix compile --warnings-as-errors # fail a build if there are any compile errors
+      # TODO ERIC revisit running tests in CircleCI
+      # - run: mix ecto.create
+      # - run: mix test

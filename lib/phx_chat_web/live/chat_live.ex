@@ -43,9 +43,9 @@ defmodule PhxChatWeb.ChatLive do
   ###############################
 
   @impl true
-  def handle_info(message, socket) do
+  def handle_info(_message, socket) do
     IO.puts("\n[][][][] New Message Received by #{inspect(self())}[][][][]")
-    {:noreply, assign(socket, message_list: recent_messages)}
+    {:noreply, assign(socket, message_list: recent_messages())}
   end
 
   ###
