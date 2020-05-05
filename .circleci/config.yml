@@ -40,7 +40,7 @@ jobs:
           command: |
             for i in `seq 1 10`;
             do
-              nc -z localhost 5432 && echo Success! Tried in $i time(s) && exit 0
+              nc -z localhost 5432 && echo Success! Total attempts: $i && exit 0
               echo -n .
               sleep 1
             done
