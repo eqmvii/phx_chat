@@ -19,6 +19,8 @@ jobs:
 
       # specify any bash command here prefixed with `run: `
       - run: echo "hello, world! I am in $(pwd). I see the following files $(ls)"
+      - run: mix local.hex --force  # install Hex locally (without prompt)
+      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
       - run: mix deps.get
       - run: mix ecto.create
       - run: mix test
