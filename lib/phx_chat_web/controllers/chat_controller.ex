@@ -2,7 +2,6 @@ defmodule PhxChatWeb.ChatController do
   use PhxChatWeb, :controller
 
   alias PhxChat.Chat
-  alias PhxChat.Chat.Message
 
   # TODO ERIC: Move page views into their own Live View component
 

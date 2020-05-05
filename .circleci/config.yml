@@ -23,7 +23,7 @@ jobs:
       - run: mix local.hex --force  # install Hex locally (without prompt)
       - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
       - run: mix deps.get
-      - run: mix compile
+      - run: mix compile --warnings-as-errors # fail a build if there are any compile errors
       # TODO ERIC revisit running tests in CircleCI
       # - run: mix ecto.create
       # - run: mix test
