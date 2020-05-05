@@ -18,7 +18,7 @@ jobs:
       - checkout
 
       # specify any bash command here prefixed with `run: `
-      - run: echo "hello, world"
+      - run: echo "hello, world! I am in $(pwd). I see the following files $(ls)"
       - run: mix deps.get
       - run: mix ecto.create
       - run: mix test
