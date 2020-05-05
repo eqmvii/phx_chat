@@ -23,6 +23,8 @@ jobs:
           POSTGRES_PASSWORD: verysecurepassword
           POSTGRES_USER: postgres
           POSTGRES_DB: phx_chat_test
+          PHOENIX_REDIS_URI: redis://localhost:6379
+      -image: circleci/redis:alpine
 
     working_directory: ~/repo
     steps:
@@ -38,7 +40,7 @@ jobs:
           command: |
             for i in `seq 1 10`;
             do
-              nc -z localhost 5432 && echo Success in $i tries && exit 0
+              nc -z localhost 5432 && echo Success! Tried in $i time(s) && exit 0
               echo -n .
               sleep 1
             done
