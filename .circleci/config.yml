@@ -13,6 +13,7 @@ jobs:
       - image: circleci/elixir:1.8.2
         environment:
           POSTGRES_TEST_DB_URL: postgresql://postgres:verysecurepassword@localhost/phx_chat_test
+          PHOENIX_REDIS_URI: redis://localhost:6379
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -23,7 +24,7 @@ jobs:
           POSTGRES_PASSWORD: verysecurepassword
           POSTGRES_USER: postgres
           POSTGRES_DB: phx_chat_test
-          PHOENIX_REDIS_URI: redis://localhost:6379
+
       - image: circleci/redis:alpine
 
     working_directory: ~/repo
@@ -33,8 +34,9 @@ jobs:
       # specify any bash command here prefixed with `run: `
       - run: echo "hello, world! I am in $(pwd). I see the following files $(ls)"
       - run: mix local.hex --force && mix local.rebar --force
-      - run: mix deps.get
-      - run: mix compile --warnings-as-errors # fail a build if there are any compile errors
+      # TODO ERIC: add back after test step is working
+      # - run: mix deps.get
+      # - run: mix compile --warnings-as-errors # fail a build if there are any compile errors
       - run:
           name: Waiting for Postgres to be ready # taken from example at https://circleci.com/docs/2.0/postgres-config/
           command: |
