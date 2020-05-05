@@ -11,7 +11,8 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:12.2
+      # TODO ERIC: Revisit pg image for seeding and testing the test DB
+      # - image: circleci/postgres:12.2
 
     working_directory: ~/repo
     steps:
@@ -22,5 +23,7 @@ jobs:
       - run: mix local.hex --force  # install Hex locally (without prompt)
       - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
       - run: mix deps.get
-      - run: mix ecto.create
-      - run: mix test
+      - run: mix compile
+      # TODO ERIC revisit running tests in CircleCI
+      # - run: mix ecto.create
+      # - run: mix test
