@@ -9,7 +9,7 @@ use Mix.Config
 config :phx_chat, PhxChat.Repo,
   username: "postgres",
   password: "verysecurepassword",
-  database: "phx_chat_dev",
+  database: "phx_chat_test",
   hostname: "postgres",
   pool: Ecto.Adapters.SQL.Sandbox
 

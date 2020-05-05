@@ -21,6 +21,13 @@ postgres=# CREATE DATABASE phx_chat_dev;
 CREATE DATABASE
 ```
 
+For test:
+
+```
+postgres=# CREATE DATABASE phx_chat_test;
+CREATE DATABASE
+```
+
 ## Sees the database
 
 ```

@@ -21,7 +21,7 @@ defmodule PhxChat.ChatTest do
 
     test "list_messages/0 returns all messages" do
       message = message_fixture()
-      refute Enum.empty?(Chat.list_messages())
+      assert Chat.list_messages() == [message]
     end
 
     test "get_message!/1 returns the message with given id" do
