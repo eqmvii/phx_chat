@@ -19,7 +19,12 @@ defmodule PhxChat.ChatTest do
       message
     end
 
+    test "the test database starts with no messages" do
+      assert Enum.empty?(Chat.list_messages())
+    end
+
     test "list_messages/0 returns all messages" do
+      assert Enum.empty?(Chat.list_messages())
       message = message_fixture()
       assert Chat.list_messages() == [message]
     end
