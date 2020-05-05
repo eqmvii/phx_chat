@@ -36,15 +36,15 @@ jobs:
       - run: mix deps.get
       - run: mix compile --warnings-as-errors # fail a build if there are any compile errors
       - run:
-        name: Waiting for Postgres to be ready # taken from example at https://circleci.com/docs/2.0/postgres-config/
-        command: |
-          for i in `seq 1 10`;
-          do
-            nc -z localhost 5432 && echo Success && exit 0
-            echo -n .
-            sleep 1
-          done
-          echo Failed waiting for Postgres && exit 1
+          name: Waiting for Postgres to be ready # taken from example at https://circleci.com/docs/2.0/postgres-config/
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z localhost 5432 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for Postgres && exit 1
       - run: mix ecto.create
       - run: mix test # connects to the test db
       # TODO ERIC: manual approval button?
