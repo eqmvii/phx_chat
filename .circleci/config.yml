@@ -27,12 +27,10 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - heroku/install
 
       # specify any bash command here prefixed with `run: `
       - run: echo "hello, world! I am in $(pwd). I see the following files $(ls)"
-      - run: mix local.hex --force  # install Hex locally (without prompt)
-      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
+      - run: mix local.hex --force && mix local.rebar --force
       - run: mix deps.get
       - run: mix compile --warnings-as-errors # fail a build if there are any compile errors
       - run:
@@ -40,13 +38,14 @@ jobs:
           command: |
             for i in `seq 1 10`;
             do
-              nc -z localhost 5432 && echo Success && exit 0
+              nc -z localhost 5432 && echo Success in $i tries && exit 0
               echo -n .
               sleep 1
             done
             echo Failed waiting for Postgres && exit 1
-      - run: mix ecto.create
+        # TODO test connecting to a regular DB and/or booting up the server?
       - run: mix test # connects to the test db
       # TODO ERIC: manual approval button?
+      - heroku/install
       - heroku/deploy-via-git
 
