@@ -25,14 +25,12 @@ executors:
     working_directory: ~/repo
 
 jobs:
-  build:
+  fetch-deps:
     executor: elixir-executor
     steps:
       - checkout
       - run: mix local.hex --force && mix local.rebar --force
       - run: mix deps.get
-      # TODO ERIC: add back after test step is working
-      # - run: mix compile --warnings-as-errors # fail a build if there are any compile errors
       - run:
           name: Waiting for Postgres to be ready
           command: |
@@ -43,8 +41,25 @@ jobs:
               sleep 1
             done
             echo Failed waiting for Postgres && exit 1
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - deps/*
+  compile:
+    executor: elixir-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo/deps
+      - run: mix compile --warnings-as-errors
+  test:
+    executor: elixir-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo/deps
       - run: mix test
-  deploy:
+  deploy-to-heroku:
     executor: elixir-executor
     steps:
       - checkout
@@ -56,19 +71,26 @@ workflows:
 
   build-test-deploy:
     jobs:
-      - build
-      - approve-deploy:
+      - fetch-deps
+      - test:
+          requires:
+              - fetch-deps
+      - compile:
+          requires:
+              - fetch-deps
+      - hold-for-approval:
           filters:
             branches:
               only:
                 - master
           type: approval
           requires:
-            - build
-      - deploy:
+            - test
+            - compile
+      - deploy-to-heroku:
           filters:
             branches:
               only:
                 - master
           requires:
-            - approve-deploy
+            - hold-for-approval
