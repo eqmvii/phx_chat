@@ -5,10 +5,16 @@ defmodule PhxChatWeb.ChatLive do
   alias PhxChat.Chat
 
   # TODO ERIC: Any need for a def render method?
+  # TODO ERIC: Use temporary assigns and scrolling instead of stopping at the last 10?
 
+  @doc """
+  Mount is called when the Live View is first rendered.
+
+  Setting page_title is a special case in Live View that allows the `<title>` tag to be dynamically controlled.
+  """
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, message: "", message_list: [], username: nil)}
+    {:ok, assign(socket, page_title: nil, message: "", message_list: [], username: nil)}
   end
 
   @impl true
@@ -19,7 +25,7 @@ defmodule PhxChatWeb.ChatLive do
       ) do
     Chat.create_message(%{user: username, message: message})
 
-    PubSub.broadcast_from(PhxChat.PubSub, self(), "chat_messages", "new_message")
+    PubSub.broadcast_from(PhxChat.PubSub, self(), "chat_messages_topic", :new_message)
 
     {:noreply,
      socket
@@ -29,11 +35,12 @@ defmodule PhxChatWeb.ChatLive do
 
   @impl true
   def handle_event("login", %{"username_input" => username}, socket) do
-    PubSub.subscribe(PhxChat.PubSub, "chat_messages")
+    PubSub.subscribe(PhxChat.PubSub, "chat_messages_topic")
 
     {:noreply,
      socket
      |> put_flash(:info, "Welcome to the Chat, #{username}!")
+     |> assign(page_title: "#{username} - Phx Chat")
      |> assign(username: username)
      |> assign(message_list: recent_messages())}
   end
@@ -43,7 +50,7 @@ defmodule PhxChatWeb.ChatLive do
   ###############################
 
   @impl true
-  def handle_info(_message, socket) do
+  def handle_info(:new_message, socket) do
     IO.puts("\n[][][][] New Message Received by #{inspect(self())}[][][][]")
     {:noreply, assign(socket, message_list: recent_messages())}
   end
