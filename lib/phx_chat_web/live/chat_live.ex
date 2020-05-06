@@ -88,7 +88,7 @@ defmodule PhxChatWeb.ChatLive do
   defp online_users() do
     @presence_topic
     |> Presence.list()
-    |> Enum.map(fn {k,v} -> k end)
+    |> Enum.map(fn { k, _v } -> k end)
     |> Enum.sort()
   end
 end
