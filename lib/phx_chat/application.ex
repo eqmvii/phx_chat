@@ -5,8 +5,6 @@ defmodule PhxChat.Application do
 
   use Application
 
-    # TODO ERIC left off here: Here, configure Redis and troubleshoot deploy
-    # details at: https://data.heroku.com/datastores/529d12b6-d38a-4b16-96f5-96a71dbba19a#settings
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
@@ -19,9 +17,6 @@ defmodule PhxChat.Application do
       {Phoenix.PubSub,
        adapter: Phoenix.PubSub.Redis,
        url: System.get_env("PHOENIX_REDIS_URI"),
-      #  TODO ERIC clean up
-      #  host: System.get_env("PHOENIX_REDIS_HOST_NAME"),
-      #  port: 6379,
        node_name: "#{inspect(self())}#{System.get_env("REDIS_PUBSUB_NODE_NAME")}",
        name: PhxChat.PubSub},
       # Start the Endpoint (http/https)
