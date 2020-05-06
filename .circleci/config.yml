@@ -41,9 +41,9 @@ jobs:
               sleep 1
             done
             echo Failed waiting for Postgres && exit 1
-      - mix test
-      # Ensure compilation works and fail if there are any errors
-      - mix compile --warnings-as-errors
+      - run: mix test
+      # Ensure compilation works and fail the build if there are any warnings
+      - run: mix compile --warnings-as-errors
   deploy-to-heroku:
     executor: elixir-executor
     steps:
@@ -64,7 +64,7 @@ workflows:
                 - master
           type: approval
           requires:
-            - test
+            - build-and-test
       - deploy-to-heroku:
           filters:
             branches:
