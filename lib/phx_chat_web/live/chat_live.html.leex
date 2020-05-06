@@ -1,4 +1,9 @@
 <%= if @username do %>
+  <section>
+    <strong>Online Users:</strong> <%= @online_users |> Enum.join(", ") %>
+  </section>
+
+  <hr />
 
   <ul class="message_list">
     <%= for message <- @message_list do %>

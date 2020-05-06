@@ -19,6 +19,8 @@ defmodule PhxChat.Application do
        url: System.get_env("PHOENIX_REDIS_URI"),
        node_name: "#{inspect(self())}#{System.get_env("REDIS_PUBSUB_NODE_NAME")}",
        name: PhxChat.PubSub},
+      # Presence must come after PubSub and before endpoint
+      PhxChatWeb.Presence,
       # Start the Endpoint (http/https)
       PhxChatWeb.Endpoint
       # Start a worker by calling: PhxChat.Worker.start_link(arg)
