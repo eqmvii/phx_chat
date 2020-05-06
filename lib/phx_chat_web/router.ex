@@ -20,6 +20,7 @@ defmodule PhxChatWeb.Router do
     pipe_through(:browser)
 
     get("/chat", ChatController, :index)
+    # TODO ERIC: Probably better to use the below syntax instead of doing a rende from within a traditional controller / component
     live("/", PageLive, :index)
   end
 

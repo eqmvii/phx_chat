@@ -8,7 +8,9 @@ defmodule PhxChatWeb.ChatLive do
   # TODO ERIC: Use temporary assigns and scrolling instead of stopping at the last 10?
 
   @doc """
-  Mount is called when the Live View is first rendered.
+  Mount is typically called twice:
+    * First statically when the Live View is first rendered.
+    * Again once the client connects (use connected?() to do state-based work at that point)
 
   Setting page_title is a special case in Live View that allows the `<title>` tag to be dynamically controlled.
   """
@@ -35,6 +37,7 @@ defmodule PhxChatWeb.ChatLive do
 
   @impl true
   def handle_event("login", %{"username_input" => username}, socket) do
+    # TODO ERIC: If this is moved to mounted, only call when connected
     PubSub.subscribe(PhxChat.PubSub, "chat_messages_topic")
 
     {:noreply,
