@@ -1,7 +1,7 @@
 defmodule PhxChatWeb.Router do
   use PhxChatWeb, :router
 
-  # alias PhxChatWeb.ChatController
+  alias PhxChatWeb.PageViewsPlug
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -10,6 +10,7 @@ defmodule PhxChatWeb.Router do
     plug(:put_root_layout, {PhxChatWeb.LayoutView, :root})
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    plug PageViewsPlug
   end
 
   pipeline :api do
