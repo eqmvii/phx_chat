@@ -4,12 +4,13 @@ defmodule PhxChatWeb.AuthController do
   # TODO ERIC test
 
   alias PhxChatWeb.ChatLive
-  alias PhxChatWeb.Presence
+  alias PhxChatWeb.PresenceService
 
   def auth(conn, %{"username" => username}) do
-    if Enum.member?(Presence.list(ChatLive.presence_topic()), username) do
-      # TODO ERIC handle more good
-      raise "NO SIR NO WAY"
+    if Enum.member?(PresenceService.online_users(), username) do
+      conn
+      |> put_flash(:error, "Username already taken (#{username})")
+      |> redirect(to: Routes.auth_path(conn, :login))
     else
       conn
       |> put_session(:username, username)

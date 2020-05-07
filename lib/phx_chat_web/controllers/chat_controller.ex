@@ -1,6 +1,8 @@
 defmodule PhxChatWeb.ChatController do
   use PhxChatWeb, :controller
 
+  plug PhxChatWeb.AuthPlug when action in [:index]
+
   # TODO ERIC Fix this: Very hacky way to jam a username form input into the session.
   # Do the auth flow better, like with a plug.
   # Ex.: raise inspect fetch_session(conn) |> get_session(:username)

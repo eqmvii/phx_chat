@@ -1,1 +1,2 @@
+<%# TODO ERIC: remove extra session key & consider rendering on its own %>
 <%= live_render(@conn, PhxChatWeb.ChatLive, session: %{"extra_session_key" => "value"}) %>

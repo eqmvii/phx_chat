@@ -1,14 +1,9 @@
 <section class="phx-hero">
-  <h1>Welcome to Phoenix Live Chat!</h1>
-  <p>Please choose a username</p>
+  <h2>Welcome! Choose a username</h2>
 
   <%= form_for @conn, Routes.auth_path(@conn, :auth), fn f -> %>
     <%= text_input f, :username, placeholder: "Choose a name" %>
     <%= submit "Login" %>
   <% end %>
-  <form>
-    <input type="text" name="username_input" placeholder="Choose a name" autocomplete="off"/>
-    <button type="submit">Enter Chat</button>
-  </form>
 </section>
 

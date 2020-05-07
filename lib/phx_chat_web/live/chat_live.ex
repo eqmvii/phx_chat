@@ -8,6 +8,7 @@ defmodule PhxChatWeb.ChatLive do
   # TODO ERIC: Any need for a def render method?
   # TODO ERIC: Use temporary assigns and scrolling instead of stopping at the last 10?
 
+  # todo eric remove
   @presence_topic "presence_topic"
   def presence_topic(), do: @presence_topic
 
