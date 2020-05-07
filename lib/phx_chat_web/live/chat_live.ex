@@ -46,7 +46,7 @@ defmodule PhxChatWeb.ChatLive do
   def handle_event(
         "send_chat",
         %{"message_input" => message},
-        %{assigns: %{username: username, message_list: message_list}} = socket
+        %{assigns: %{username: username}} = socket
       ) do
     {:ok, new_message} = Chat.create_message(%{user: username, message: message})
 
