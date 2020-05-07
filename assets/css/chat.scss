@@ -1,4 +1,8 @@
 
 .chat__message-list {
   list-style-type: none;
+  height: 485px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }

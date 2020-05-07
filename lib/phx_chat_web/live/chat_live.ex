@@ -20,43 +20,42 @@ defmodule PhxChatWeb.ChatLive do
   """
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, online_at: nil, page_title: nil, message: "", message_list: [], username: nil)}
+    username = "Eric" # TODO NOT THIS; HANDLE LOGIN MORE PERSISTANTLY
+    if connected?(socket) do
+      PubSub.subscribe(PhxChat.PubSub, @chat_messages_topic)
+      PubSub.subscribe(PhxChat.PubSub, @presence_topic)
+
+      Presence.track(self(), @presence_topic, username, %{
+        online_at: inspect(System.system_time(:second))
+      })
+
+      {:ok,
+       socket
+       |> assign(page_title: "#{username} - Phx Chat")
+       |> assign(message: "")
+       |> assign(username: username)
+       |> assign(online_users: online_users())
+       |> assign(message_list:  Chat.recent_messages()),
+       temporary_assigns: [message_list: []]}
+    else
+      {:ok, assign(socket, online_at: nil, page_title: nil, message: "", message_list: [], username: nil)}
+    end
   end
 
   @impl true
   def handle_event(
         "send_chat",
         %{"message_input" => message},
-        %{assigns: %{username: username}} = socket
+        %{assigns: %{username: username, message_list: message_list}} = socket
       ) do
-    Chat.create_message(%{user: username, message: message})
+    {:ok, new_message} = Chat.create_message(%{user: username, message: message})
 
-    PubSub.broadcast_from(PhxChat.PubSub, self(), @chat_messages_topic, :new_message)
+    PubSub.broadcast_from(PhxChat.PubSub, self(), @chat_messages_topic, %{new_message: new_message})
 
     {:noreply,
      socket
      |> assign(message: "")
-     |> assign(message_list: recent_messages())}
-  end
-
-  @impl true
-  def handle_event("login", %{"username_input" => username}, socket) do
-    # TODO ERIC: Reject duplicate usernames to prevent very odd presence behavior
-    # TODO ERIC: If this is moved to mounted, only call when connected
-    PubSub.subscribe(PhxChat.PubSub, @chat_messages_topic)
-    PubSub.subscribe(PhxChat.PubSub, @presence_topic)
-
-    Presence.track(self(), @presence_topic, username, %{
-      online_at: inspect(System.system_time(:second))
-    })
-
-    {:noreply,
-     socket
-     |> put_flash(:info, "Welcome to the Chat, #{username}!")
-     |> assign(page_title: "#{username} - Phx Chat")
-     |> assign(username: username)
-     |> assign(online_users: online_users())
-     |> assign(message_list: recent_messages())}
+     |> assign(message_list: [new_message])}
   end
 
   ###############################
@@ -64,17 +63,15 @@ defmodule PhxChatWeb.ChatLive do
   ###############################
 
   @impl true
-  def handle_info(:new_message, socket) do
+  def handle_info(%{new_message: new_message}, socket) do
     IO.puts("\n[][][][] New Message Received by #{inspect(self())}[][][][]")
-    {:noreply, assign(socket, message_list: recent_messages())}
+    {:noreply, assign(socket, message_list: [new_message])}
   end
-
 
   ############################
   # Phoenix Presence Handler #
   ############################
 
-  # TODO ERIC: Consider using diffs vs. list here
   @impl true
   def handle_info(%{event: "presence_diff"}, socket) do
     {:noreply, assign(socket, online_users: online_users())}
@@ -83,8 +80,6 @@ defmodule PhxChatWeb.ChatLive do
   ###
   ### Private Methods
   ###
-
-  defp recent_messages(), do: Chat.recent_messages() |> Enum.reverse()
 
   defp online_users() do
     @presence_topic
