@@ -1,11 +1,7 @@
 /* This file is for your main application css. */
 @import "./phoenix.css";
+@import "./chat.scss";
 @import "../node_modules/nprogress/nprogress.css";
-
-/* TODO ERIC move to separate file */
-ul.message_list {
-  list-style-type: none;
-}
 
 /* LiveView specific classes for your customizations */
 .invalid-feedback {

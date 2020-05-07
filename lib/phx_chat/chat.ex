@@ -22,7 +22,7 @@ defmodule PhxChat.Chat do
   end
 
   def recent_messages do
-    query = from(m in Message, limit: 10, order_by: [desc_nulls_last: m.inserted_at])
+    query = from(m in Message, limit: 100, order_by: [desc_nulls_last: m.inserted_at])
 
     Repo.all(query)
   end

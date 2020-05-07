@@ -5,15 +5,13 @@
 
   <hr />
 
-  <ul class="message_list">
+  <ul class="chat__message-list">
     <%= for message <- @message_list do %>
       <li>[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
     <% end %>
   </ul>
 
-  <section class="phx-hero">
-    <h3>Welcome to Phoenix Live Chat!</h3>
-
+  <section class="chatbox">
     <form phx-submit="send_chat">
       <input type="text" name="message_input" value="<%= @message %>" placeholder="Enter message" autocomplete="off"/>
       <button type="submit" phx-disable-with="Sending...">Send Chat</button>

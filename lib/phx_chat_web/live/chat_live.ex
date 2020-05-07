@@ -69,6 +69,7 @@ defmodule PhxChatWeb.ChatLive do
     {:noreply, assign(socket, message_list: recent_messages())}
   end
 
+
   ############################
   # Phoenix Presence Handler #
   ############################
