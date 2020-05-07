@@ -3,7 +3,6 @@ defmodule PhxChatWeb.AuthController do
 
   # TODO ERIC test
 
-  alias PhxChatWeb.ChatLive
   alias PhxChatWeb.PresenceService
 
   def auth(conn, %{"username" => username}) do
