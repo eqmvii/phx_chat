@@ -1,16 +1,1 @@
-<%= if @logged_in do %>
-  <%= live_render(@conn, PhxChatWeb.ChatLive, session: %{"extra_session_key" => "value"}) %>
-<% else %>
-  <section class="phx-hero">
-    <h1>Welcome to Phoenix Live Chat!</h1>
-    <p>Please choose a username</p>
-
-    <form>
-      <input type="text" name="username_input" placeholder="Choose a name" autocomplete="off"/>
-      <button type="submit">Enter Chat</button>
-    </form>
-  </section>
-<% end %>
-
-<hr />
-<p style="text-align: center;">Page Views: <%= @page_views %></p>
+<%= live_render(@conn, PhxChatWeb.ChatLive, session: %{"extra_session_key" => "value"}) %>

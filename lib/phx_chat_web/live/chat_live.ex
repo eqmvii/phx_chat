@@ -9,6 +9,8 @@ defmodule PhxChatWeb.ChatLive do
   # TODO ERIC: Use temporary assigns and scrolling instead of stopping at the last 10?
 
   @presence_topic "presence_topic"
+  def presence_topic(), do: @presence_topic
+
   @chat_messages_topic "chat_messages_topic"
 
   @doc """
