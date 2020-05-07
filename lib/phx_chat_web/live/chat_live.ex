@@ -19,8 +19,7 @@ defmodule PhxChatWeb.ChatLive do
   Setting page_title is a special case in Live View that allows the `<title>` tag to be dynamically controlled.
   """
   @impl true
-  def mount(_params, _session, socket) do
-    username = "Eric" # TODO NOT THIS; HANDLE LOGIN MORE PERSISTANTLY
+  def mount(_params, %{"username" => username} = _session, socket) do
     if connected?(socket) do
       PubSub.subscribe(PhxChat.PubSub, @chat_messages_topic)
       PubSub.subscribe(PhxChat.PubSub, @presence_topic)
@@ -38,7 +37,7 @@ defmodule PhxChatWeb.ChatLive do
        |> assign(message_list:  Chat.recent_messages()),
        temporary_assigns: [message_list: []]}
     else
-      {:ok, assign(socket, online_at: nil, page_title: nil, message: "", message_list: [], username: nil)}
+      {:ok, assign(socket, online_users: [], page_title: nil, message: "", message_list: [], username: nil)}
     end
   end
 

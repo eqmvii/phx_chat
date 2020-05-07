@@ -1,34 +1,21 @@
-<%= if @username do %>
-  <section>
-    <strong>Online Users:</strong> <%= @online_users |> Enum.join(", ") %>
-  </section>
+<section>
+  <strong>Online Users:</strong> <%= @online_users |> Enum.join(", ") %>
+</section>
 
-  <hr />
+<hr />
 
-  <ul id="chat-list" class="chat__message-list" phx-update="prepend">
-    <%= for message <- @message_list do %>
-      <li id="<%= message.id %>">[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
-    <% end %>
-  </ul>
+<ul id="chat-list" class="chat__message-list" phx-update="prepend">
+  <%= for message <- @message_list do %>
+    <li id="<%= message.id %>">[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
+  <% end %>
+</ul>
 
-  <section class="chatbox">
-    <form phx-submit="send_chat">
-      <input type="text" name="message_input" value="<%= @message %>" placeholder="Enter message" autocomplete="off"/>
-      <button type="submit" phx-disable-with="Sending...">Send Chat</button>
-    </form>
-  </section>
+<section class="chatbox">
+  <form phx-submit="send_chat">
+    <input type="text" name="message_input" value="<%= @message %>" placeholder="Enter message" autocomplete="off"/>
+    <button type="submit" phx-disable-with="Sending...">Send Chat</button>
+  </form>
+</section>
 
-<% else %>
 
-  <section class="phx-hero">
-    <h1>Welcome to Phoenix Live Chat!</h1>
-    <p>Please choose a username</p>
-
-    <form phx-submit="login">
-      <input type="text" name="username_input" value="<%= @username %>" placeholder="Choose a name" autocomplete="off"/>
-      <button type="submit" phx-disable-with="Entering chat...">Enter Chat</button>
-    </form>
-  </section>
-
-<% end %>
 
