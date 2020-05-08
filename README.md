@@ -8,6 +8,40 @@ Recreating a simple chat app using Phoenix Live View. An updated version of [ech
 * PostgreSQL
 * No React (or, really, any JavaScript)
 
+# TODO LIST
+
+* [ ] Break readme into sub files
+
+# Heroku
+
+[TO COME]
+
+## Maintenance
+
+`heroku maintenance:on` or `heroku maintenance:off`
+
+## Scale Down
+
+`heroku ps:scale web=0`
+
+## Status
+
+`heroku ps`
+
+## Releases
+
+`heroku releases`
+
+## Bash in
+
+`heroku run bash`
+
+## Logs
+
+`heroku logs --tail`
+
+(if needed can be dyno specific or w/e)
+
 # Postgres connection
 
 ## Execute psql in the running postgres container

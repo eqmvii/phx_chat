@@ -2,6 +2,7 @@ defmodule PhxChatWeb.AuthController do
   use PhxChatWeb, :controller
 
   # TODO ERIC test
+  # TODO limit usernames to a sane number of characters
 
   alias PhxChatWeb.PresenceService
 
@@ -18,4 +19,10 @@ defmodule PhxChatWeb.AuthController do
   end
 
   def login(conn, _params), do: render(conn)
+
+  def logout(conn, _params) do
+    conn
+    |> clear_session
+    |> redirect to: Routes.auth_path(conn, :login)
+  end
 end

@@ -2,6 +2,7 @@ defmodule PhxChatWeb.Router do
   use PhxChatWeb, :router
 
   alias PhxChatWeb.PageViewsPlug
+  alias PhxChatWeb.SessionPlug
 
   pipeline :browser do
     plug(:accepts, ["html"])
@@ -11,6 +12,7 @@ defmodule PhxChatWeb.Router do
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
     plug PageViewsPlug
+    plug SessionPlug
   end
 
   pipeline :api do
@@ -21,7 +23,9 @@ defmodule PhxChatWeb.Router do
     pipe_through(:browser)
 
     post("/auth", AuthController, :auth)
+
     get("/login", AuthController, :login)
+    post("/logout", AuthController, :logout)
 
     get("/chat", ChatController, :index)
     # TODO ERIC: Probably better to use the below syntax instead of doing a rende from within a traditional controller / component

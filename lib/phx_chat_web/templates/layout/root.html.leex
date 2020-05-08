@@ -14,11 +14,22 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/chat">Chat</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+            <%= if is_nil @username do %>
+              <li><a href="/login">Log In</a></li>
+            <% else %>
+              <li>Hi, <%= @username %></li>
+              <li><a href="/chat">Chat</a></li>
+              <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+              <% end %>
+              <%# TODO ERIC: style this in a less terrible fashion %>
+              <li>
+                <%= form_for @conn, Routes.auth_path(@conn, :logout), fn f -> %>
+                  <%= submit "Logout", class: "logout" %>
+                <% end %>
+              </li>
             <% end %>
+
           </ul>
         </nav>
         <a href="/" class="phx-logo">
