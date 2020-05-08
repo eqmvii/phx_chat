@@ -10,7 +10,10 @@ defmodule PhxChat.MixProject do
       compilers: [:phoenix] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      # mix coveralls works without needing to use MIX_ENV=test
+      preferred_cli_env: [coveralls: :test]
     ]
   end
 
@@ -34,6 +37,7 @@ defmodule PhxChat.MixProject do
   defp deps do
     [
       {:ecto_sql, "~> 3.4"},
+      {:excoveralls, "~> 0.12.3", only: :test},
       {:floki, ">= 0.0.0", only: :test},
       {:jason, "~> 1.0"},
       {:phoenix_ecto, "~> 4.1"},
