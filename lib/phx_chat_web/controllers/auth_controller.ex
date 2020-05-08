@@ -22,7 +22,7 @@ defmodule PhxChatWeb.AuthController do
 
   def logout(conn, _params) do
     conn
-    |> clear_session
-    |> redirect to: Routes.auth_path(conn, :login)
+    |> clear_session()
+    |> redirect(to: Routes.auth_path(conn, :login))
   end
 end

@@ -37,10 +37,16 @@ defmodule PhxChatWeb.ChatLive do
        |> assign(message: "")
        |> assign(username: username)
        |> assign(online_users: online_users())
-       |> assign(message_list:  Chat.recent_messages()),
-       temporary_assigns: [message_list: []]}
+       |> assign(message_list: Chat.recent_messages()), temporary_assigns: [message_list: []]}
     else
-      {:ok, assign(socket, online_users: [], page_title: nil, message: "", message_list: [], username: nil)}
+      {:ok,
+       assign(socket,
+         online_users: [],
+         page_title: nil,
+         message: "",
+         message_list: [],
+         username: nil
+       )}
     end
   end
 
@@ -52,7 +58,9 @@ defmodule PhxChatWeb.ChatLive do
       ) do
     {:ok, new_message} = Chat.create_message(%{user: username, message: message})
 
-    PubSub.broadcast_from(PhxChat.PubSub, self(), @chat_messages_topic, %{new_message: new_message})
+    PubSub.broadcast_from(PhxChat.PubSub, self(), @chat_messages_topic, %{
+      new_message: new_message
+    })
 
     {:noreply,
      socket
@@ -86,7 +94,7 @@ defmodule PhxChatWeb.ChatLive do
   defp online_users() do
     @presence_topic
     |> Presence.list()
-    |> Enum.map(fn { k, _v } -> k end)
+    |> Enum.map(fn {k, _v} -> k end)
     |> Enum.sort()
   end
 end

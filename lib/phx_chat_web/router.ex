@@ -11,8 +11,8 @@ defmodule PhxChatWeb.Router do
     plug(:put_root_layout, {PhxChatWeb.LayoutView, :root})
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
-    plug PageViewsPlug
-    plug SessionPlug
+    plug(PageViewsPlug)
+    plug(SessionPlug)
   end
 
   pipeline :api do
@@ -28,6 +28,7 @@ defmodule PhxChatWeb.Router do
     post("/logout", AuthController, :logout)
 
     get("/chat", ChatController, :index)
+
     # TODO ERIC: Probably better to use the below syntax instead of doing a rende from within a traditional controller / component
     live("/", PageLive, :index)
   end

@@ -7,7 +7,7 @@ defmodule PhxChatWeb.PresenceService do
   def online_users() do
     @presence_topic
     |> Presence.list()
-    |> Enum.map(fn { k, _v } -> k end)
+    |> Enum.map(fn {k, _v} -> k end)
     |> Enum.sort()
   end
 end
