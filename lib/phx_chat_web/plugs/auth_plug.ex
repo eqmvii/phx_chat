@@ -1,4 +1,4 @@
-defmodule PhxChatWeb.AuthPlug do
+defmodule PhxChatWeb.LogInRequiredPlug do
   import Plug.Conn
 
   # TODO ERIC test
