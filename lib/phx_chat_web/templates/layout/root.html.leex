@@ -24,7 +24,7 @@
               <% end %>
               <%# TODO ERIC: style this in a less terrible fashion %>
               <li>
-                <%= form_for @conn, Routes.auth_path(@conn, :logout), fn f -> %>
+                <%= form_for @conn, Routes.auth_path(@conn, :logout), fn _f -> %>
                   <%= submit "Logout", class: "logout" %>
                 <% end %>
               </li>
