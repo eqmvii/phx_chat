@@ -10,10 +10,14 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :phx_chat, PhxChatWeb.Endpoint,
+  # adding localhost to checkorigin to allow running a secret local prod-configured pod
+  # jammed with secrets from heroku config
+  check_origin: ["https://eqmvii-phx-chat.herokuapp.com", "http://localhost:8008"],
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "eqmvii-phx-chat.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"
+
 
 # Do not print debug messages in production
 config :logger, level: :info

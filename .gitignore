@@ -43,4 +43,5 @@ npm-debug.log
 # removed from gitignore for test heroku deployment
 # /config/*.secret.exs
 
-
+# Local files with credentials
+secret/

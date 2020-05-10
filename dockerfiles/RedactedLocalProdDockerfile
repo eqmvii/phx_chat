@@ -1,0 +1,41 @@
+# secret/local_prod_phx_chat:1
+# Prototype Dockerfile for a Production Build, importing secrets as though it were on Heroku
+#
+# USAGE:
+#
+# docker build -t secret/local_prod_phx_chat:1 -f secret/LocalProdDockerfile .
+# docker run --name secretphx -p 8008:4000 secret/local_prod_phx_chat:1
+
+FROM elixir:1.8.2
+
+ENV MIX_ENV=prod
+
+# If creds rotate, get new ones by running heroku config
+ENV DATABASE_URL="REDACTED"
+ENV PHOENIX_REDIS_URI="REDACTED"
+ENV SECRET_KEY_BASE="REDACTED"
+ENV REDIS_PUBSUB_NODE_NAME="REDACTED"
+
+# Install hex and rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+# Install Node.js for building assets
+RUN apt-get update && \
+    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
+    apt-get install -y nodejs
+
+RUN mkdir /app
+WORKDIR /app
+COPY . .
+
+RUN mix deps.get --only prod
+# relies on .dockerignore excluding node_modules/ so that a fresh fetch is performed
+RUN cd assets && npm install
+RUN npm run deploy --prefix ./assets
+
+RUN mix compile
+RUN mix phx.digest
+
+EXPOSE 4000
+CMD [ "mix", "phx.server" ]
