@@ -1,0 +1,17 @@
+# Hello, Kubernetes World!
+# kubectl create -f kubernetes/local-phx-chat-prod-pod.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: phx-chat-webapp
+  labels:
+    app: phx-chat-webapp
+spec:
+  containers:
+    - image: secret/local_prod_phx_chat:1
+      name: phx-chat-webapp
+      # Use local prod image, assuming it was built with k8s/docker context via eval $(minikube docker-env)
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 4000

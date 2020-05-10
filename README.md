@@ -157,7 +157,10 @@ Followed steps from [https://hexdocs.pm/phoenix/heroku.html](This Guide)
 
 `heroku addons:create heroku-postgresql:hobby-dev`
 
-`heroku config:set POOL_SIZE=18`
+NOTE: This was initially 18, which caused the app to be boxed out when trying to run a pod locally
+NOTE TO FUTURE SELF: It's going to have to be even lower if you want to run multiple pods locally + run in the cloud
+
+`heroku config:set POOL_SIZE=9`
 
 ## Redis
 
