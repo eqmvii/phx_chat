@@ -1,0 +1,5 @@
+# node_modules causes significant issues if copied over because
+# of the file-based phoenix directories that aren't fetched from NPM
+*/node_modules
+deps/
+_build/

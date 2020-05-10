@@ -1,0 +1,46 @@
+# Prodtest5
+# Prototype Dockerfile for a Production Build
+#
+# This doesn't really work right now, but until doing releases below, I'm going to set it aside.
+#
+# These environment variables won't work in production, but the scaffolding should work
+# for building images to release to productoin environments
+
+# TODO ERIC: Upgrade to elixir 1.9+, then use mix release and a multi-stage build
+# https://hexdocs.pm/phoenix/releases.html
+
+FROM elixir:1.8.2
+
+ENV MIX_ENV=prod
+
+# TODO ERIC - none of this...
+ENV DATABASE_URL="postgresql://postgres:password@postgres/phx_chat"
+ENV SECRET_KEY_BASE="NOT THIS"
+# Container booted up using:
+# docker run -d --name redisprod -p 6379:6379 redis:alpine
+ENV PHOENIX_REDIS_URI="redis://localhost:6379"
+
+# Install hex and rebar
+RUN mix local.hex --force && \
+    mix local.rebar --force
+
+# Install Node.js for building assets
+RUN apt-get update && \
+    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
+    apt-get install -y nodejs
+
+RUN mkdir /app
+WORKDIR /app
+COPY . .
+
+RUN mix deps.get --only prod
+# relies on .dockerignore excluding node_modules/ so that a fresh fetch is performed
+RUN cd assets && npm install
+RUN npm run deploy --prefix ./assets
+
+RUN mix compile
+RUN mix phx.digest
+
+# TODO ERIC probably don't need this?
+EXPOSE 4000
+CMD [ "mix", "phx.server" ]
