@@ -9,4 +9,4 @@ spec:
     protocol: TCP
     targetPort: 4000
   selector:
-    app: phx-chat-lb
+    app: phx-chat-webapp

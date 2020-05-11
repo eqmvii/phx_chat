@@ -53,3 +53,28 @@ kubectl port-forward phx-chat-webapp 8008:4000
 ```
 kubectl create -f kubernetes/service-phx-chat.yaml
 ```
+
+# Create/apply a deployment
+
+```
+kubectl apply -f kubernetes/deployment-phx-chat-v1.yaml --record
+kubectl rollout status deployment phx-chat-webapp
+
+minikube service list
+
+minikube service phx-chat-lb
+```
+
+# Issue is that Plug.SSL is redirecting based on the route:
+
+03:36:25.034 [info] Plug.SSL is redirecting GET / to https://eqmvii-phx-chat.herokuapp.com with status 301
+
+hackily fixed by reworking configurations in prod.exs
+
+# Rollbacks
+
+```
+kubectl rollout history deployment phx-chat-webapp
+kubectl rollout undo deployment phx-chat-webapp
+
+```

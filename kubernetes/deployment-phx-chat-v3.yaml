@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phx-chat-webapp
+spec:
+  selector:
+    matchLabels:
+      app: phx-chat-webapp
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: phx-chat-webapp
+    spec:
+      containers:
+        - image: secret/local_prod_phx_chat:3
+          imagePullPolicy: IfNotPresent
+          name: phx-chat-webapp
+          ports:
+            - containerPort: 4000
