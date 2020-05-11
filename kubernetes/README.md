@@ -47,3 +47,9 @@ kubectl port-forward phx-chat-webapp 8008:4000
 ```
 
 (only 8008 is configred in the phoenix endpoint so exposing elsewhere will cause issues)
+
+# Create a Service / LB for the web app
+
+```
+kubectl create -f kubernetes/service-phx-chat.yaml
+```
