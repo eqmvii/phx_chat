@@ -9,7 +9,7 @@ metadata:
     app: phx-chat-webapp
 spec:
   containers:
-    - image: secret/local_prod_phx_chat:1
+    - image: secret/local_prod_phx_chat:2
       name: phx-chat-webapp
       # Use local prod image, assuming it was built with k8s/docker context via eval $(minikube docker-env)
       imagePullPolicy: IfNotPresent

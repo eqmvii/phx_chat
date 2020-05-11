@@ -17,7 +17,7 @@ defmodule PhxChat.Application do
       {Phoenix.PubSub,
        adapter: Phoenix.PubSub.Redis,
        url: System.get_env("PHOENIX_REDIS_URI"),
-       node_name: "#{inspect(self())}#{System.get_env("REDIS_PUBSUB_NODE_NAME")}",
+       node_name: "#{System.get_env("REDIS_PUBSUB_NODE_NAME")}",
        name: PhxChat.PubSub},
       # Presence must come after PubSub and before endpoint
       PhxChatWeb.Presence,

@@ -1,3 +1,7 @@
+# Dash
+
+minikube dashboard
+
 # Setting minikube to hit local containers
 
 This allows images to be built within kubernetes vm and used locally rather than pulled from an external repository:
@@ -9,6 +13,8 @@ eval $(minikube docker-env)
 
 docker build -t secret/local_prod_phx_chat:1 -f secret/LocalProdDockerfile .
 ```
+
+using docker image ls from within the terminal will show images that are local
 
 Then ensure the following field is set in your kubernetes yamls:
 
