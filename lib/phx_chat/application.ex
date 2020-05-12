@@ -17,8 +17,11 @@ defmodule PhxChat.Application do
       {Phoenix.PubSub,
        adapter: Phoenix.PubSub.Redis,
        url: System.get_env("PHOENIX_REDIS_URI"),
-       node_name: "#{System.get_env("REDIS_PUBSUB_NODE_NAME")}",
-       name: PhxChat.PubSub},
+       # testing with a random number for now. TODO ERIC ABSOLUTELY NOT THIS.
+       node_name: "#{:rand.uniform(100_000_000)}#{System.get_env("REDIS_PUBSUB_NODE_NAME")}",
+       name: PhxChat.PubSub,
+       # lowered redis_pool_size to handle concurrent pod testing
+       redis_pool_size: 3},
       # Presence must come after PubSub and before endpoint
       PhxChatWeb.Presence,
       # Start the Endpoint (http/https)
