@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   web:
-    image: phxchat1.0
+    image: eqmvii/phx_chat:1
     ports:
     - "8000:4000"
     volumes:
@@ -12,7 +12,7 @@ services:
     - POSTGRES_TEST_DB_URL=postgresql://postgres:verysecurepassword@postgres/phx_chat_test
     - POSTGRES_DEV_DB_URL=postgresql://postgres:verysecurepassword@postgres/phx_chat_dev
   bizzaro_web:
-    image: phxchat1.0
+    image: eqmvii/phx_chat:1
     ports:
     - "8001:4000"
     volumes:

@@ -5,6 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
+# TODO ERIC: These are now soft deprecated in favor of import Config
 use Mix.Config
 
 config :phx_chat,

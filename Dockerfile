@@ -1,7 +1,8 @@
-# phxchat1.0 - development version
+# phx_chat:1 - development version
+# docker build -t eqmvii/phx_chat:1 .
 # Simple container to run phoenix apps
 
-FROM elixir:1.8.2
+FROM elixir:1.9.4
 
 RUN mix local.hex --force && \
     mix local.rebar --force
