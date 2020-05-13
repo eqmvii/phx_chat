@@ -5,7 +5,21 @@ defmodule PhxChat.Application do
 
   use Application
 
+  require Logger
+
   def start(_type, _args) do
+    # Ideally, we can get a unique node name from our Kubernetes pod name.
+    # Failing that, Ecto can give each instance a UUID.
+    # The node_name needs to be different for each instance of this application for the Redis PubSub to work.
+    node_name =
+      if is_nil(System.get_env("KUBERNETES_POD_NAME")) do
+        Ecto.UUID.generate()
+      else
+        System.get_env("KUBERNETES_POD_NAME")
+      end
+
+    Logger.info("\n=== Application Starting with Redis PubSub Node Name: ===\n#{inspect(node_name)}\n\n")
+
     children = [
       # Start the Ecto repository
       PhxChat.Repo,
@@ -18,7 +32,7 @@ defmodule PhxChat.Application do
        adapter: Phoenix.PubSub.Redis,
        url: System.get_env("PHOENIX_REDIS_URI"),
        # testing with a random number for now. TODO ERIC ABSOLUTELY NOT THIS.
-       node_name: "#{:rand.uniform(100_000_000)}#{System.get_env("REDIS_PUBSUB_NODE_NAME")}",
+       node_name: node_name,
        name: PhxChat.PubSub,
        # lowered redis_pool_size to handle concurrent pod testing
        redis_pool_size: 3},

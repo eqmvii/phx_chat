@@ -8,7 +8,6 @@ services:
     volumes:
     - .:/app
     environment:
-    - REDIS_PUBSUB_NODE_NAME=webapp_one
     - PHOENIX_REDIS_URI=redis://redis:6379
     - POSTGRES_TEST_DB_URL=postgresql://postgres:verysecurepassword@postgres/phx_chat_test
   bizzaro_web:
@@ -18,7 +17,6 @@ services:
     volumes:
     - .:/app
     environment:
-    - REDIS_PUBSUB_NODE_NAME=webapp_two
     - PHOENIX_REDIS_URI=redis://redis:6379
   postgres:
     image: postgres:12.2

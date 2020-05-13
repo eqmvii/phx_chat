@@ -168,8 +168,6 @@ Heroku Redis added manually via Web UI
 
 `heroku config:set PHOENIX_REDIS_URI="[REDACTED]"`
 
-`heroku config:set REDIS_PUBSUB_NODE_NAME="testone"`
-
 (may need to revisit -- how to make unique for multiple servers?)
 
 ## Secret Key Base
