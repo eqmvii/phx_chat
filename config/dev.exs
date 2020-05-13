@@ -2,12 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :phx_chat, PhxChat.Repo,
-  username: "postgres",
-  password: "verysecurepassword",
-  database: "phx_chat_dev",
-  hostname: "postgres",
+  # Defaulting to a broken string so we can compile a dev container, then run it with a differnt environment variable
+  url: System.get_env("POSTGRES_DEV_DB_URL") || "ecto://USER:PASS@HOST/DATABASE",
   show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+  pool_size: 4
 
 # For development, we disable any cache and enable
 # debugging and code reloading.

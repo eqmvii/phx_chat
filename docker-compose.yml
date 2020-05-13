@@ -10,6 +10,7 @@ services:
     environment:
     - PHOENIX_REDIS_URI=redis://redis:6379
     - POSTGRES_TEST_DB_URL=postgresql://postgres:verysecurepassword@postgres/phx_chat_test
+    - POSTGRES_DEV_DB_URL=postgresql://postgres:verysecurepassword@postgres/phx_chat_dev
   bizzaro_web:
     image: phxchat1.0
     ports:
@@ -17,11 +18,14 @@ services:
     volumes:
     - .:/app
     environment:
-    - PHOENIX_REDIS_URI=redis://redis:6379
+      - PHOENIX_REDIS_URI=redis://redis:6379
+      - POSTGRES_TEST_DB_URL=postgresql://postgres:verysecurepassword@postgres/phx_chat_test
+      - POSTGRES_DEV_DB_URL=postgresql://postgres:verysecurepassword@postgres/phx_chat_dev
   postgres:
     image: postgres:12.2
     environment:
       - POSTGRES_PASSWORD=verysecurepassword
+    # TODO ERIC: Consider dropping the volumes for the DB and using an "ephemeral"
     volumes:
       - phx_chat_pg_data:/var/lib/postgresql/data
   redis:

@@ -4,12 +4,8 @@
 # remember to add this file to your .gitignore.
 use Mix.Config
 
-database_url =
-  System.get_env("DATABASE_URL") ||
-    raise """
-    environment variable DATABASE_URL is missing.
-    For example: ecto://USER:PASS@HOST/DATABASE
-    """
+# Defaulting to a broken string so we can compile a prod container, then run it with a differnt environment variable
+database_url = System.get_env("DATABASE_URL") || "ecto://USER:PASS@HOST/DATABASE"
 
 config :phx_chat, PhxChat.Repo,
   ssl: true,
@@ -17,12 +13,8 @@ config :phx_chat, PhxChat.Repo,
   # Pool size configured low to account for Kubernetes testing and 20 connection limit on Heroku PG
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "4")
 
-secret_key_base =
-  System.get_env("SECRET_KEY_BASE") ||
-    raise """
-    environment variable SECRET_KEY_BASE is missing.
-    You can generate one by calling: mix phx.gen.secret
-    """
+# Defaulting to an insecure string so we can compile a prod container, then run it with a differnt environment variable
+secret_key_base = System.get_env("SECRET_KEY_BASE") || "definitelynotasecurestring"
 
 config :phx_chat, PhxChatWeb.Endpoint,
   http: [

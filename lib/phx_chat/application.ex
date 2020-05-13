@@ -20,18 +20,20 @@ defmodule PhxChat.Application do
 
     Logger.info("\n=== Application Starting with Redis PubSub Node Name: ===\n#{inspect(node_name)}\n\n")
 
+    # Defaulting to a broken string so we can compile a prod container, then run it with a differnt environment variable
+    redis_url = System.get_env("PHOENIX_REDIS_URI") || "redis://wontwork"
+
     children = [
       # Start the Ecto repository
       PhxChat.Repo,
       # Start the Telemetry supervisor
       PhxChatWeb.Telemetry,
       # Connect to Redis container / pod
-      {Redix, {System.get_env("PHOENIX_REDIS_URI"), name: :redix}},
+      {Redix, {redis_url, name: :redix}},
       # Start the PubSub system via PubSub Redis
       {Phoenix.PubSub,
        adapter: Phoenix.PubSub.Redis,
-       url: System.get_env("PHOENIX_REDIS_URI"),
-       # testing with a random number for now. TODO ERIC ABSOLUTELY NOT THIS.
+       url: redis_url,
        node_name: node_name,
        name: PhxChat.PubSub,
        # lowered redis_pool_size to handle concurrent pod testing
