@@ -42,6 +42,46 @@ Recreating a simple chat app using Phoenix Live View. An updated version of [ech
 
 (if needed can be dyno specific or w/e)
 
+# mix release
+
+for a prod build:
+
+(1) build, compile, etc. as normal.
+
+(2) updated prod secret confix to be runtime release, and update config to start phoenix endpoint (no mix phx.server to do it for us)
+
+See these sources:
+
+https://hexdocs.pm/phoenix/releases.html
+https://hexdocs.pm/mix/1.9.4/Mix.Tasks.Release.html
+
+mix release
+
+```
+* assembling phx_chat-0.1.0 on MIX_ENV=prod
+importing prod.exs...
+* using config/releases.exs to configure the release at runtime
+* skipping elixir.bat for windows (bin/elixir.bat not found in the Elixir installation)
+* skipping iex.bat for windows (bin/iex.bat not found in the Elixir installation)
+
+Release created at _build/prod/rel/phx_chat!
+
+    # To start your system
+    _build/prod/rel/phx_chat/bin/phx_chat start
+
+Once the release is running:
+
+    # To connect to it remotely
+    _build/prod/rel/phx_chat/bin/phx_chat remote
+
+    # To stop it gracefully (you may also send SIGINT/SIGTERM)
+    _build/prod/rel/phx_chat/bin/phx_chat stop
+
+To list all commands:
+
+    _build/prod/rel/phx_chat/bin/phx_chat
+```
+
 # Postgres connection
 
 ## Execute psql in the running postgres container

@@ -2,7 +2,10 @@
 # from environment variables. You can also hardcode secrets,
 # although such is generally not recommended and you have to
 # remember to add this file to your .gitignore.
-use Mix.Config
+#
+# This is calculated at runtime, see here for more details
+# https://hexdocs.pm/phoenix/releases.html#runtime-configuration
+import Config
 
 # Defaulting to a broken string so we can compile a prod container, then run it with a differnt environment variable
 database_url = System.get_env("DATABASE_URL") || "ecto://USER:PASS@HOST/DATABASE"
@@ -28,7 +31,9 @@ config :phx_chat, PhxChatWeb.Endpoint,
 # If you are doing OTP releases, you need to instruct Phoenix
 # to start each relevant endpoint:
 #
-#     config :phx_chat, PhxChatWeb.Endpoint, server: true
+
+config :phx_chat, PhxChatWeb.Endpoint, server: true
+
 #
 # Then you can assemble a release by calling `mix release`.
 # See `mix help release` for more information.
