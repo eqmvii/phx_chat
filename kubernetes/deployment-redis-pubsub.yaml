@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-pubsub
+  labels:
+    app: redis-pubsub
+spec:
+  selector:
+    matchLabels:
+      app:  redis-pubsub
+
+  replicas: 1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: redis-pubsub
+    spec:
+      containers:
+        - image: "redis:alpine"
+          imagePullPolicy: Always
+          name: redis-pubsub
+          ports:
+            - containerPort: 6379
+
+###
+### Helpful Commands
+###
+
+# Deploy & watch
+
+# kubectl apply -f ./kubernetes/deployment-redis-pubsub.yaml --record && kubectl rollout status deployment phx-chat && kubectl get pods

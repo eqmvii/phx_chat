@@ -32,6 +32,8 @@ spec:
           ports:
             - containerPort: 4000
           env:
+            - name: PHOENIX_REDIS_URI
+              value: redis://redis-pubsub:6379
             - name: KUBERNETES_POD_NAME
               valueFrom:
                 fieldRef:
@@ -41,16 +43,12 @@ spec:
                 secretKeyRef:
                   name: heroku-db-url-secret
                   key: heroku-db-url
-            - name: PHOENIX_REDIS_URI
-              valueFrom:
-                secretKeyRef:
-                  name: heroku-redis-url-secret
-                  key: heroku-redis-url
             - name: SECRET_KEY_BASE
               valueFrom:
                 secretKeyRef:
                   name: secret-key-base-secret
                   key: secret-key-base
+
 ###
 ### Helpful Commands
 ###
