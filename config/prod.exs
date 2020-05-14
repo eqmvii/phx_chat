@@ -63,3 +63,11 @@ config :logger, level: :info
 # We no longer config/prod.secret.exs, instead it is renamed
 # to releases.exs to handle runtime configuratoin.
 # import_config "prod.secret.exs"
+
+if System.get_env("IS_HEROKU") && System.get_env("IS_HEROKU") == "YES" do
+  IO.puts "\n\n IMPORTING HEROKU CONFIG \N\N"
+  import_config "heroku.exs"
+else
+  IO.puts "\n\n Skipping heroku config... \N\N"
+end
+
