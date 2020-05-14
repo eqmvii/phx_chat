@@ -1,22 +1,25 @@
-# eqmvii/pivate_phx_chat:6
-# Prototype Dockerfile for a Production Build, importing secrets as though it were on Heroku
+# eqmvii/pivate_phx_chat:8
+# Dockerfile for Production Build (yes pivate is a typo)
 #
 # USAGE:
 #
-# docker build -t eqmvii/pivate_phx_chat:6 -f ProdDockerfile .
-# docker push eqmvii/pivate_phx_chat:6
-FROM elixir:1.9.4
+# docker build -t eqmvii/pivate_phx_chat:8 -f ProdDockerfile .
+# docker push eqmvii/pivate_phx_chat:8
+# Requires runtime environment variables:
+#  * DATABASE_URL
+#  * PHOENIX_REDIS_URI
+#  * SECRET_KEY_BASE
+
+FROM elixir:1.9.4-alpine AS build
+
+# install build dependencies
+RUN apk add --no-cache build-base npm git python
 
 ENV MIX_ENV=prod
 
 # Install hex and rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
-
-# Install Node.js for building assets
-RUN apt-get update && \
-    curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
-    apt-get install -y nodejs
 
 RUN mkdir /app
 WORKDIR /app
@@ -27,10 +30,24 @@ RUN mix deps.get --only prod
 RUN cd assets && npm install
 RUN npm run deploy --prefix ./assets
 
-RUN mix compile
-RUN mix phx.digest
+RUN mix compile && mix phx.digest
 
 RUN mix release
 
-EXPOSE 4000
-CMD [ "_build/prod/rel/phx_chat/bin/phx_chat", "start" ]
+# adapted from: https://hexdocs.pm/phoenix/releases.html#runtime-configuration
+# prepare release image, don't even need elixir, we can be as slim as possible now
+FROM alpine:3.9 AS app
+RUN apk add --no-cache openssl ncurses-libs
+
+WORKDIR /app
+
+RUN chown nobody:nobody /app
+
+# docker best practice is to run as non-root user
+USER nobody:nobody
+
+COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/phx_chat ./
+
+ENV HOME=/app
+
+CMD ["bin/phx_chat", "start"]
