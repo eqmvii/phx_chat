@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phx-chat
+  labels:
+    app: phx-chat
+spec:
+  selector:
+    matchLabels:
+      app:  phx-chat
+
+  replicas: 0
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 3
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: phx-chat
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        # lol yes, typo, pivate not privae. Sigh.
+        - image: eqmvii/pivate_phx_chat:8
+          imagePullPolicy: Always
+          name: phx-chat
+          ports:
+            - containerPort: 4000
+          env:
+            - name: KUBERNETES_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            # TODO: use secret deployment file with necessary environment vars, or use kubernetes secrets
+
+###
+### Helpful Commands
+###
+
+# Deploy & watch
+
+# kubectl apply -f deployment-phx-chat-alpine.yaml --record && kubectl rollout status deployment phx-chat && kubectl get pods
+

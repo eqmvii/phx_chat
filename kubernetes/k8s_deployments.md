@@ -14,6 +14,12 @@ Persistent: https://kubernetes.io/docs/tasks/access-application-cluster/configur
 kubectl apply -f kubernetes/deployment-phx-chat-alpine.yaml --record && kubectl rollout status deployment phx-chat && kubectl get pods
 ```
 
+# Turn Off
+
+```
+kubectl apply -f kubernetes/deployment-off.yaml
+```
+
 # History
 
 ```
