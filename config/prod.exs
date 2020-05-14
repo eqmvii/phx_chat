@@ -65,9 +65,9 @@ config :logger, level: :info
 # import_config "prod.secret.exs"
 
 if System.get_env("IS_HEROKU") && System.get_env("IS_HEROKU") == "YES" do
-  IO.puts "\n\n IMPORTING HEROKU CONFIG \N\N"
+  IO.puts "\n\n IMPORTING HEROKU CONFIG \n\n"
   import_config "heroku.exs"
 else
-  IO.puts "\n\n Skipping heroku config... \N\N"
+  IO.puts "\n\n Skipping heroku config... \n\n"
 end
 
