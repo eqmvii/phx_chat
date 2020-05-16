@@ -1,3 +1,5 @@
+# testpod for a multi-container pod
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -10,11 +12,21 @@ spec:
     - image: gcr.io/cloudsql-docker/gce-proxy:1.16
       name: cproxy
       command: ["/cloud_sql_proxy"]
-      args: ["-instances=peppy-archive-277221:us-east4:phx-chat-db=tcp:0.0.0.0:5432", "-credential_file=/config/peppy-archive-277221-6811d08aed21.json"]
+      args: ["-instances=peppy-archive-277221:us-east4:phx-chat-db=tcp:0.0.0.0:5433", "-credential_file=/config/peppy-archive-277221-6811d08aed21.json"]
       volumeMounts:
         - name: config
           mountPath: "/config"
           readOnly: true
+
+    - name: pg
+      # using a pg container means we can bash in, then use psql to test the sidecar gcp connection
+      image: postgres:12.2
+      env:
+        - name: POSTGRES_PASSWORD
+          value: verysecurepassword
+      ports:
+        - containerPort: 5432
+
   volumes:
   - name: config
     secret:
