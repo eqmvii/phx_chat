@@ -8,10 +8,14 @@
 import Config
 
 # Defaulting to a broken string so we can compile a prod container, then run it with a differnt environment variable
+# TODO ERIC: Now that this is releases.exs and evaluated on run, can this be changed?
 database_url = System.get_env("DATABASE_URL") || "ecto://USER:PASS@HOST/DATABASE"
 
 config :phx_chat, PhxChat.Repo,
-  ssl: true,
+  # removing the ssl requirement because of the GCP sidecar architecture: in production, this container shares a pod
+  # with the could proxy container, which it connects to over localhost. The cloud proxy then encrupts and connects to
+  # the GCP Cloud SQL database.
+  # ssl: true,
   url: database_url,
   # Pool size configured low to account for Kubernetes testing and 20 connection limit on Heroku PG
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "4")

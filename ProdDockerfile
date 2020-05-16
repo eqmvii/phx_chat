@@ -1,10 +1,10 @@
-# eqmvii/pivate_phx_chat:8
+# eqmvii/pivate_phx_chat:9
 # Dockerfile for Production Build (yes pivate is a typo)
 #
 # USAGE:
 #
-# docker build -t eqmvii/pivate_phx_chat:8 -f ProdDockerfile .
-# docker push eqmvii/pivate_phx_chat:8
+# docker build -t eqmvii/pivate_phx_chat:9 -f ProdDockerfile .
+# docker push eqmvii/pivate_phx_chat:9
 # Requires runtime environment variables:
 #  * DATABASE_URL
 #  * PHOENIX_REDIS_URI
