@@ -9,8 +9,7 @@ spec:
     matchLabels:
       app:  phx-chat
 
-  # sometimes using one or three replica to troubleshoot redis
-  replicas: 3
+  replicas: 15
   minReadySeconds: 15
   strategy:
     type: RollingUpdate
