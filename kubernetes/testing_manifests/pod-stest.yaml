@@ -1,0 +1,25 @@
+# A dummy ubuntu pod, to give bash access, play with secrets, etc.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: stest
+  labels:
+    app: stest
+spec:
+  containers:
+    - image: ubuntu
+      name: stest
+      command: ["sleep"]
+      args: ["10000"]
+      volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+  volumes:
+  - name: config
+    secret:
+      secretName: cloud-proxy-json
+
+# earlier test proved that the secret can be cat'd on run:
+# command: ["cat"]
+# args: ["/config/peppy-archive-277221-6811d08aed21.json"]

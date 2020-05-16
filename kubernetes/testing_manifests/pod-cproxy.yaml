@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cproxy
+  labels:
+    app: cproxy
+spec:
+  containers:
+    # TODO ERIC: Update version here
+    - image: gcr.io/cloudsql-docker/gce-proxy:1.16
+      name: cproxy
+      command: ["/cloud_sql_proxy"]
+      args: ["-instances=peppy-archive-277221:us-east4:phx-chat-db=tcp:0.0.0.0:5432", "-credential_file=/config/peppy-archive-277221-6811d08aed21.json"]
+      volumeMounts:
+        - name: config
+          mountPath: "/config"
+          readOnly: true
+  volumes:
+  - name: config
+    secret:
+      secretName: cloud-proxy-json
+
+# TODO ERIC:
+  # securityContext:
+  #   # The default Cloud SQL proxy image is based on distroless, which
+  #   # runs as the "nonroot" user (uid: 65534) by default.
+  #   runAsNonRoot: true

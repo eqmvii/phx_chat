@@ -26,3 +26,5 @@ Best plan is likely a sidecar proxy container in each pod: https://cloud.google.
 https://www.magalix.com/blog/kubernetes-secrets-101
 
 https://kubernetes.io/docs/concepts/configuration/secret/
+
+https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine
