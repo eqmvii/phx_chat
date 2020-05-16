@@ -9,7 +9,7 @@ spec:
     matchLabels:
       app:  phx-chat
 
-  replicas: 3
+  replicas: 15
   minReadySeconds: 15
   strategy:
     type: RollingUpdate

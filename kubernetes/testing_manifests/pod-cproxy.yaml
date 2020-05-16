@@ -9,7 +9,7 @@ metadata:
 spec:
   containers:
     # TODO ERIC: Update version here
-    - image: gcr.io/cloudsql-docker/gce-proxy:1.16
+    - image: gcr.io/cloudsql-docker/gce-proxy:1.17
       name: cproxy
       command: ["/cloud_sql_proxy"]
       args: ["-instances=peppy-archive-277221:us-east4:phx-chat-db=tcp:0.0.0.0:5433", "-credential_file=/config/peppy-archive-277221-6811d08aed21.json"]
