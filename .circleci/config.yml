@@ -61,13 +61,15 @@ jobs:
       - docker/check
       - run:
           command: 'echo -n "we got this far, and we are in $(pwd)"'
-      # TODO ERIC: Kind of a hack here; tag as latest then make k8s deploy the latest
+      # TODO ERIC: Kind of a hack here; tag as latest then make k8s deploy the latest...
       # ideally it will be tagged with the sha, then k8s will deploy this sha... maybe that's where I need helm?
       - docker/build:
-          image: eqmvii/circle-build-test:latest
+          image: eqmvii/circle-build-test
+          tag: latest
           dockerfile: ProdDockerfile
       - docker/push:
-          image: eqmvii/circle-build-test:latest
+          image: eqmvii/circle-build-test
+          tag: latest
   deploy-to-kubernetes:
     executor: barebones-executor
     steps:
