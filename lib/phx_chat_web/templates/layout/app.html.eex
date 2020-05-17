@@ -7,3 +7,4 @@
 <hr />
 
 <p style="text-align: center;">Page Views: <%= @page_views %></p>
+<p style="text-align: center;">Github Repo: <a href="https://github.com/eqmvii/phx_chat">eqmvii/phx_chat</a>
