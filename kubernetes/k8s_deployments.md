@@ -14,6 +14,12 @@ Persistent: https://kubernetes.io/docs/tasks/access-application-cluster/configur
 kubectl apply -f kubernetes/deployment-phx-chat-alpine.yaml --record && kubectl rollout status deployment phx-chat && kubectl get pods
 ```
 
+# Scale
+
+```
+kubectl scale deployment phx-chat --replicas=1
+```
+
 # Turn Off
 
 This is silly - better way is just deleting the deployment, `kubectl delete deployment phx-chat`
