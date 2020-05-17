@@ -4,6 +4,7 @@ version: 2.1
 
 orbs:
   heroku: circleci/heroku@1.0.1
+  docker: circleci/docker@1.0.1
 
 executors:
   elixir-executor:
@@ -46,6 +47,23 @@ jobs:
       - checkout
       - heroku/install
       - heroku/deploy-via-git
+  build-docker-image:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - run:
+          command: 'echo -n "we got this far, and we are in $(pwd)"'
+      # TODO ERIC append with sha
+      - docker/build:
+          image: eqmvii/circle-build-test
+      # - docker/push:
+      #     digest-path: /tmp/digest.txt
+      #     image: my_repo/orb-test
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)"
 
 workflows:
   version: 2
@@ -53,6 +71,7 @@ workflows:
   build-test-deploy:
     jobs:
       - build-and-test
+      - build-docker-image
       - heroku-deploy-approval:
           filters:
             branches:
@@ -61,6 +80,15 @@ workflows:
           type: approval
           requires:
             - build-and-test
+      - kubernetes-deploy-approval:
+          filters:
+            branches:
+              only:
+                - master
+          type: approval
+          requires:
+            - build-and-test
+            - build-docker-image
       - deploy-to-heroku:
           filters:
             branches:
@@ -68,3 +96,10 @@ workflows:
                 - master
           requires:
             - heroku-deploy-approval
+      - deploy-to-kubernetes:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - kubernetes-deploy-approval
