@@ -20,6 +20,11 @@ executors:
           POSTGRES_DB: phx_chat_test
       - image: circleci/redis:alpine
     working_directory: ~/repo
+  # TODO ERIC remove if unused
+  barebones-executor:
+    docker:
+      - image: cimg/base:2020.01
+    working_directory: ~/repo
 
 jobs:
   build-and-test:
@@ -64,6 +69,11 @@ jobs:
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
+  deploy-to-kubernetes:
+    executor: barebones-executor
+    steps:
+      - run:
+          command: 'echo "this is where we would deploy to kubernetes"'
 
 workflows:
   version: 2
