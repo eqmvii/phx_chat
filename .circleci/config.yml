@@ -83,7 +83,7 @@ workflows:
       - build-and-test:
           # TODO ERIC: remove this requires. Only used while testing docker process to speed things up.
           requires:
-            - build-and-test
+            - build-docker-image
       - build-docker-image
       - heroku-deploy-approval:
           filters:
