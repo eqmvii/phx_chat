@@ -42,6 +42,17 @@ and can't be "rolled back"
 kubectl rollout undo deployment phx-chat && kubectl rollout status deployment phx-cha && kubectl get pods
 ```
 
+# component health
+
+```
+kubectl get componentstatuses
+
+$ kubectl get componentstatuses
+NAME                 STATUS      MESSAGE                                                                                     ERROR
+scheduler            Unhealthy   Get http://127.0.0.1:10251/healthz: dial tcp 127.0.0.1:10251: connect: connection refused
+controller-manager   Unhealthy   Get http://127.0.0.1:10252/healthz: dial tcp 127.0.0.1:10252: connect: connection refused
+etcd-0               Healthy     {"health":"true"}
+```
 
 ## Configuration
 
@@ -49,7 +60,8 @@ kubectl rollout undo deployment phx-chat && kubectl rollout status deployment ph
 kubectl config get-contexts
 ```
 
-# Dashboard
+
+# Dashboard & troubleshooting
 
 Install and run proxy:
 
