@@ -74,9 +74,9 @@ jobs:
       - checkout
       - run:
           command: 'echo "TODO ERIC remove testing k8s deployment step"'
-      - kube-orb/install-kubectl
-      - kube-orb/install-kubeconfig
-      - kube-orb/create-or-update-resource:
+      - kubernetes/install-kubectl
+      - kubernetes/install-kubeconfig
+      - kubernetes/create-or-update-resource:
           get-rollout-status: true
           resource-file-path: kubernetes/deployment-phx-chat.yaml
           resource-name: phx-chat
