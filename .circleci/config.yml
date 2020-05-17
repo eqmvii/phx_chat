@@ -5,6 +5,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.0.1
   docker: circleci/docker@1.0.1
+  kubernetes: circleci/kubernetes@0.11.0
 
 executors:
   elixir-executor:
@@ -60,21 +61,26 @@ jobs:
       - docker/check
       - run:
           command: 'echo -n "we got this far, and we are in $(pwd)"'
-      # TODO ERIC append with sha
+      # TODO ERIC: Kind of a hack here; tag as latest then make k8s deploy the latest
+      # ideally it will be tagged with the sha, then k8s will deploy this sha... maybe that's where I need helm?
       - docker/build:
-          image: eqmvii/circle-build-test
+          image: eqmvii/circle-build-test:latest
           dockerfile: ProdDockerfile
       - docker/push:
-          image: eqmvii/circle-build-test
-      # TODO ERIC: research docker digests
-      # - run:
-      #     command: |
-      #       echo "Digest is: $(</tmp/digest.txt)"
+          image: eqmvii/circle-build-test:latest
   deploy-to-kubernetes:
     executor: barebones-executor
     steps:
+      - checkout
       - run:
-          command: 'echo "this is where we would deploy to kubernetes"'
+          command: 'echo "TODO ERIC remove testing k8s deployment step"'
+      - kube-orb/install-kubectl
+      - kube-orb/install-kubeconfig
+      - kube-orb/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: kubernetes/deployment-phx-chat.yaml
+          resource-name: phx-chat
+          show-kubectl-command: true
 
 workflows:
   version: 2

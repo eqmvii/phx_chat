@@ -12,9 +12,19 @@ Recreating a simple chat app using Phoenix Live View. An updated version of [ech
 
 * [ ] Break readme into sub files
 
-# Heroku
+# CircleCI
 
-[TO COME]
+to encode the kubernetes config file:
+
+```
+cat /path/to/kubeconfig.yaml | base64 -w 0
+```
+
+(-w 0 ensures the output is one long string)
+
+Then set that in CircleCI as KUBECONFIG_DATA
+
+# Heroku
 
 ## Maintenance
 
