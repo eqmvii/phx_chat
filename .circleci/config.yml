@@ -63,12 +63,13 @@ jobs:
       # TODO ERIC append with sha
       - docker/build:
           image: eqmvii/circle-build-test
-      # - docker/push:
-      #     digest-path: /tmp/digest.txt
-      #     image: my_repo/orb-test
-      - run:
-          command: |
-            echo "Digest is: $(</tmp/digest.txt)"
+          dockerfile: ProdDockerfile
+      - docker/push:
+          image: eqmvii/circle-build-test
+      # TODO ERIC: research docker digests
+      # - run:
+      #     command: |
+      #       echo "Digest is: $(</tmp/digest.txt)"
   deploy-to-kubernetes:
     executor: barebones-executor
     steps:
