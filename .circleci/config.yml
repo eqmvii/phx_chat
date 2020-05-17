@@ -61,26 +61,26 @@ jobs:
       - docker/check
       - run:
           command: 'echo -n "we got this far, and we are in $(pwd)"'
-      # TODO ERIC: Kind of a hack here; tag as latest then make k8s deploy the latest...
-      # ideally it will be tagged with the sha, then k8s will deploy this sha... maybe that's where I need helm?
       - docker/build:
+          # default tag will be circle's sha, the sha of the last commit
           image: eqmvii/circle-build-test
-          tag: latest
           dockerfile: ProdDockerfile
       - docker/push:
           image: eqmvii/circle-build-test
-          tag: latest
   deploy-to-kubernetes:
     executor: barebones-executor
     steps:
       - checkout
-      - run:
-          command: 'echo "TODO ERIC remove testing k8s deployment step"'
       - kubernetes/install-kubectl
       - kubernetes/install-kubeconfig
+        # Instead of learning and using helm, let's just use sed to make our deployment fire off the sha we just pushed
+      - run:
+          command: "echo $CIRCLE_SHA1"
+      - run:
+          command: 'sed "s/:latest/:$(echo $CIRCLE_SHA1)/" kubernetes/deployment-phx-chat.yaml > hackjob_deployment.yaml && cat hackjob_deployment.yaml'
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
-          resource-file-path: kubernetes/deployment-phx-chat.yaml
+          resource-file-path: hackjob_deployment.yaml
           resource-name: deployments/phx-chat
           show-kubectl-command: true
 
