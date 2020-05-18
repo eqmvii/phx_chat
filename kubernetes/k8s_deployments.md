@@ -20,6 +20,14 @@ kubectl apply -f kubernetes/deployment-phx-chat-alpine.yaml --record && kubectl 
 kubectl scale deployment phx-chat --replicas=1
 ```
 
+# Edit
+
+```
+kubectl edit deployment phx-chat
+```
+
+Opens the deployment yaml in a text file, letting you tinker directly with things like replica count.
+
 # Turn Off
 
 This is silly - better way is just deleting the deployment, `kubectl delete deployment phx-chat`
