@@ -1,12 +1,21 @@
 # Phx Chat
 
-Recreating a simple chat app using Phoenix Live View. An updated version of [echat](https://github.com/eqmvii/echat), now with:
+A chat application built with:
 
-* Phoenix Live View (i.e., web sockets instead of long polling)
-* Docker
+* Phoenix Live View
+* PostgreSQL (via Google Cloud SQL)
 * Redis
-* PostgreSQL
-* No React (or, really, any JavaScript)
+* Kubernetes
+* Docker
+* CircleCI for testing, building images, and deployment to the Kubernetes cluster.
+
+The production app runs multiple webapp pods each with a cloud proxy sidecar container to connect to the GCP Cloud SQL Postgres database.
+
+A makeover of [echat](https://github.com/eqmvii/echat), now with needless farkles and absurd infrastructure.
+
+# Notes and other information
+
+See below for various development and deployment notes.
 
 # TODO LIST
 
