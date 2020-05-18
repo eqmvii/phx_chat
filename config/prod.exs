@@ -10,15 +10,12 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :phx_chat, PhxChatWeb.Endpoint,
-  # adding localhost to checkorigin to allow running a secret local prod-configured pod
-  # jammed with secrets from heroku config
-  # TODO ERIC: disabled for local minikube testing
-  # TODO ERIC: Consider playing with dev pods in minikube instead of hacking all this
+  # TODO ERIC: consider changing for production
   # check_origin: ["https://eqmvii-phx-chat.herokuapp.com", "http://localhost:8008"],
   check_origin: false,
   http: [port: {:system, "PORT"}],
+  # re-enable if ssl is ever needed/used in production
   # url: [scheme: "https", host: "eqmvii-phx-chat.herokuapp.com", port: 443],
-  # TODO ERIC: This is disabled to verify testing in minikube
   # force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"
 

@@ -8,7 +8,6 @@ metadata:
     app: cproxy
 spec:
   containers:
-    # TODO ERIC: Update version here
     - image: gcr.io/cloudsql-docker/gce-proxy:1.17
       name: cproxy
       command: ["/cloud_sql_proxy"]
@@ -31,9 +30,3 @@ spec:
   - name: config
     secret:
       secretName: cloud-proxy-json
-
-# TODO ERIC:
-  # securityContext:
-  #   # The default Cloud SQL proxy image is based on distroless, which
-  #   # runs as the "nonroot" user (uid: 65534) by default.
-  #   runAsNonRoot: true

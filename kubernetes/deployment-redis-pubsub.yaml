@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - image: "redis:alpine"
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           name: redis-pubsub
           ports:
             - containerPort: 6379

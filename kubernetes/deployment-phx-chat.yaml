@@ -21,12 +21,13 @@ spec:
       labels:
         app: phx-chat
     spec:
+      # TODO ERIC: investigate running as non-root user (securityContext)
       imagePullSecrets:
         - name: regcred
       containers:
         - name: server
           image: eqmvii/circle-build-test:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
 
           ports:
             - containerPort: 4000
@@ -51,6 +52,7 @@ spec:
         # sidecar container: proxy to gcp database
         - name: cproxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.17
+          imagePullPolicy: IfNotPresent
           command: ["/cloud_sql_proxy"]
           args: ["-instances=peppy-archive-277221:us-east4:phx-chat-db=tcp:0.0.0.0:5432", "-credential_file=/config/peppy-archive-277221-6811d08aed21.json"]
           volumeMounts:

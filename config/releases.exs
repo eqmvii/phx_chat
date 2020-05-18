@@ -7,9 +7,7 @@
 # https://hexdocs.pm/phoenix/releases.html#runtime-configuration
 import Config
 
-# Defaulting to a broken string so we can compile a prod container, then run it with a differnt environment variable
-# TODO ERIC: Now that this is releases.exs and evaluated on run, can this be changed?
-database_url = System.get_env("DATABASE_URL") || "ecto://USER:PASS@HOST/DATABASE"
+database_url = System.get_env("DATABASE_URL")
 
 config :phx_chat, PhxChat.Repo,
   # removing the ssl requirement because of the GCP sidecar architecture: in production, this container shares a pod
