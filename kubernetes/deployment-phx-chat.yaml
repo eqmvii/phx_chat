@@ -26,7 +26,10 @@ spec:
         - name: regcred
       containers:
         - name: server
-          image: eqmvii/circle-build-test:latest
+          # Latest is overriden to the sha of the latest deployment by a CircleCI script; it is otherwise an anti-attern. From the k8s docs:
+          # Note: You should avoid using the :latest tag when deploying containers in production as it is harder to track
+          # which version of the image is running and more difficult to roll back properly.
+          image: eqmvii/phx-chat:latest
           imagePullPolicy: IfNotPresent
           # resources limits work, but are more sluggish than not using them. Commenting out for now.
           # resources:

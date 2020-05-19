@@ -28,7 +28,7 @@ services:
     volumes:
       - phx_chat_pg_data:/var/lib/postgresql/data
   redis:
-    image: "redis:alpine"
+    image: "redis:6.0.3-alpine3.11"
 
 # Created volume manually with docker volume create before using it here
 volumes:

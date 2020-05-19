@@ -22,7 +22,7 @@ spec:
         app: redis-pubsub
     spec:
       containers:
-        - image: "redis:alpine"
+        - image: "redis:6.0.3-alpine3.11"
           imagePullPolicy: IfNotPresent
           name: redis-pubsub
           ports:
