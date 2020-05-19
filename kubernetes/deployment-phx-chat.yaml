@@ -28,7 +28,14 @@ spec:
         - name: server
           image: eqmvii/circle-build-test:latest
           imagePullPolicy: IfNotPresent
-
+          # resources limits work, but are more sluggish than not using them. Commenting out for now.
+          # resources:
+          #   requests:
+          #     memory: "256Mi"
+          #     cpu: "150m"
+          #   limits:
+          #     memory: "1024Mi"
+          #     cpu: "500m"
           ports:
             - containerPort: 4000
           env:
@@ -53,6 +60,13 @@ spec:
         - name: cproxy
           image: gcr.io/cloudsql-docker/gce-proxy:1.17
           imagePullPolicy: IfNotPresent
+          # resources:
+          #   requests:
+          #     memory: "128Mi"
+          #     cpu: "100m"
+          #   limits:
+          #     memory: "256Mi"
+          #     cpu: "250m"
           command: ["/cloud_sql_proxy"]
           args: ["-instances=peppy-archive-277221:us-east4:phx-chat-db=tcp:0.0.0.0:5432", "-credential_file=/config/peppy-archive-277221-6811d08aed21.json"]
           volumeMounts:
