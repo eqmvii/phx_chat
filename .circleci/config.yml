@@ -67,6 +67,10 @@ jobs:
       - docker/push:
           image: eqmvii/phx-chat
       # the latest tag is evil, but by pushing it at this step along with the sha, it's at least kind of true for this repo.
+      - docker/build:
+          image: eqmvii/phx-chat
+          tag: latest
+          dockerfile: ProdDockerfile
       - docker/push:
           image: eqmvii/phx-chat
           tag: latest
