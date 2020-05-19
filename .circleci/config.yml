@@ -68,8 +68,8 @@ jobs:
           image: eqmvii/phx-chat
       # the latest tag is evil, but by pushing it at this step along with the sha, it's at least kind of true for this repo.
       - docker/push:
-        image: eqmvii/phx-chat
-        tag: latest
+          image: eqmvii/phx-chat
+          tag: latest
   deploy-to-kubernetes:
     executor: barebones-executor
     steps:
