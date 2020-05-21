@@ -3,7 +3,7 @@
 To configure access:
 
 ```
-export KUBECONFIG=~/repos/test-k8s-cluster-linode/testcluster-kubeconfig.yaml
+export KUBECONFIG=~/repos/phx_chat/secret/phx-chat-kubeconfig.yaml
 ```
 
 Persistent: https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/#set-the-kubeconfig-environment-variable
