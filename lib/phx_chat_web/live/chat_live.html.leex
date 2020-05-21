@@ -1,5 +1,8 @@
 <section>
-  <strong>Online Users:</strong> <%= @online_users |> Enum.join(", ") %>
+  <strong>Online Users:</strong>
+    <%= for user <- @online_users do %>
+      <%= live_component @socket, OnlineUserComponent, content: user %>
+    <%= end %>
 </section>
 
 <hr />
