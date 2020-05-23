@@ -3,4 +3,16 @@
 
 // Vendor
 @import "../node_modules/nprogress/nprogress.css";
+@import "../vendor/normalize.css";
 
+// Defaults for sanity
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+body, html {
+  height: 100%;
+}
