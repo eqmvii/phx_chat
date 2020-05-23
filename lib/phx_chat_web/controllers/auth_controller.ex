@@ -2,7 +2,7 @@ defmodule PhxChatWeb.AuthController do
   use PhxChatWeb, :controller
 
   # TODO ERIC test
-  # TODO limit usernames to a sane number of characters
+  # TODO limit usernames to a sane number of characters and restrict "eric"
 
   alias PhxChatWeb.PresenceService
 
@@ -14,7 +14,7 @@ defmodule PhxChatWeb.AuthController do
     else
       conn
       |> put_session(:username, username)
-      |> redirect(to: Routes.chat_path(conn, :index))
+      |> redirect(to: "/")
     end
   end
 

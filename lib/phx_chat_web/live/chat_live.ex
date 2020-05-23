@@ -8,8 +8,7 @@ defmodule PhxChatWeb.ChatLive do
 
   @chat_messages_topic "chat_messages_topic"
 
-
-  # def render(assigns) could be used here. Since that callback isn't implemented
+  # A render callback could be used here. Since that callback isn't implemented,
   # the matching template phx_chat_web\live\chat_live.html.leex is automatically rendered
 
   @doc """
@@ -42,8 +41,7 @@ defmodule PhxChatWeb.ChatLive do
          online_users: [],
          page_title: nil,
          message: "",
-         message_list: [],
-         username: nil
+         message_list: []
        )}
     end
   end

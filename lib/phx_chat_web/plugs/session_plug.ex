@@ -14,6 +14,6 @@ defmodule PhxChatWeb.SessionPlug do
       |> get_session()
       |> Map.get("username", nil)
 
-    assign(conn, :username, username)
+      assign(conn, :username, username)
   end
 end

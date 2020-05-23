@@ -1,6 +1,7 @@
 defmodule PhxChatWeb.Router do
   use PhxChatWeb, :router
 
+  alias PhxChatWeb.LogInRequiredPlug
   alias PhxChatWeb.PageViewsPlug
   alias PhxChatWeb.SessionPlug
 
@@ -15,6 +16,10 @@ defmodule PhxChatWeb.Router do
     plug(SessionPlug)
   end
 
+  pipeline :login_required do
+    plug(LogInRequiredPlug)
+  end
+
   pipeline :api do
     plug(:accepts, ["json"])
   end
@@ -23,14 +28,12 @@ defmodule PhxChatWeb.Router do
     pipe_through(:browser)
 
     post("/auth", AuthController, :auth)
-
     get("/login", AuthController, :login)
     post("/logout", AuthController, :logout)
 
-    get("/chat", ChatController, :index)
-
-    # TODO ERIC: Probably better to use the below syntax instead of doing a rende from within a traditional controller / component
-    live("/", PageLive, :index)
+    # slightly hacky way to force login on landing
+    pipe_through(:login_required)
+    live("/", ChatLive, :index)
   end
 
   # Other scopes may use custom stacks.
