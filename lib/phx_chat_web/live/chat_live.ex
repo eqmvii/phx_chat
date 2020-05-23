@@ -4,15 +4,13 @@ defmodule PhxChatWeb.ChatLive do
   alias Phoenix.PubSub
   alias PhxChat.Chat
   alias PhxChatWeb.Presence
-
-  # TODO ERIC: Any need for a def render method?
-  # TODO ERIC: Use temporary assigns and scrolling instead of stopping at the last 10?
-
-  # todo eric remove
-  @presence_topic "presence_topic"
-  def presence_topic(), do: @presence_topic
+  alias PhxChatWeb.PresenceService
 
   @chat_messages_topic "chat_messages_topic"
+
+
+  # def render(assigns) could be used here. Since that callback isn't implemented
+  # the matching template phx_chat_web\live\chat_live.html.leex is automatically rendered
 
   @doc """
   Mount is typically called twice:
@@ -25,9 +23,9 @@ defmodule PhxChatWeb.ChatLive do
   def mount(_params, %{"username" => username} = _session, socket) do
     if connected?(socket) do
       PubSub.subscribe(PhxChat.PubSub, @chat_messages_topic)
-      PubSub.subscribe(PhxChat.PubSub, @presence_topic)
+      PubSub.subscribe(PhxChat.PubSub, PresenceService.presence_topic())
 
-      Presence.track(self(), @presence_topic, username, %{
+      Presence.track(self(), PresenceService.presence_topic(), username, %{
         online_at: inspect(System.system_time(:second))
       })
 
@@ -36,7 +34,7 @@ defmodule PhxChatWeb.ChatLive do
        |> assign(page_title: "#{username} - Phx Chat")
        |> assign(message: "")
        |> assign(username: username)
-       |> assign(online_users: online_users())
+       |> assign(online_users: PresenceService.online_users())
        |> assign(message_list: Chat.recent_messages()), temporary_assigns: [message_list: []]}
     else
       {:ok,
@@ -84,17 +82,6 @@ defmodule PhxChatWeb.ChatLive do
 
   @impl true
   def handle_info(%{event: "presence_diff"}, socket) do
-    {:noreply, assign(socket, online_users: online_users())}
-  end
-
-  ###
-  ### Private Methods
-  ###
-
-  defp online_users() do
-    @presence_topic
-    |> Presence.list()
-    |> Enum.map(fn {k, _v} -> k end)
-    |> Enum.sort()
+    {:noreply, assign(socket, online_users: PresenceService.online_users())}
   end
 end

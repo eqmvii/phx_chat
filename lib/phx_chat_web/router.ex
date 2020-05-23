@@ -38,6 +38,7 @@ defmodule PhxChatWeb.Router do
   #   pipe_through :api
   # end
 
+  # TODO ERIC: Enable in production
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put

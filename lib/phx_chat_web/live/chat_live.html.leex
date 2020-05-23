@@ -2,7 +2,7 @@
   <strong>Online Users:</strong>
     <%= for user <- @online_users do %>
       <%= live_component @socket, OnlineUserComponent, content: user %>
-    <%= end %>
+    <% end %>
 </section>
 
 <hr />
