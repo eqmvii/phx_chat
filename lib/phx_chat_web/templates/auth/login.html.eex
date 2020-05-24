@@ -1,9 +1,6 @@
-<section class="login">
-  <h2>Welcome! Choose a username</h2>
-
-  <%= form_for @conn, Routes.auth_path(@conn, :auth), fn f -> %>
-    <%= text_input f, :username, placeholder: "Choose a name" %>
-    <%= submit "Login" %>
-  <% end %>
-</section>
+<%= form_for @conn, Routes.auth_path(@conn, :auth), [class: "login-window"], fn f -> %>
+  <%# TODO ERIC: Style error messages and add some kind of welcome to this screen %>
+  <%= text_input f, :username, class: "login-window__input", placeholder: "Choose a Username", autofocus: true %>
+  <%= submit "Login", class: "login-window__submit" %>
+<% end %>
 

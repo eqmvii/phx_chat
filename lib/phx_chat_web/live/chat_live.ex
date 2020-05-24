@@ -89,7 +89,7 @@ defmodule PhxChatWeb.ChatLive do
 
   # TODO ERIC test
   def timestamp(time) do
-    case Timex.format(time, "%I:%M %P", :strftime) do
+    case time |> Timex.Timezone.convert("America/New_York") |> Timex.format("%I:%M%P", :strftime) do
       {:ok, time} -> time
       _error -> "ERROR"
     end

@@ -16,14 +16,14 @@
           <ul class="nav-items">
             <%= unless is_nil @username do %>
               <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-                <li class="nav-items__item"><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+                <li class="nav-items__item"><%= link "LiveDashboard", class: "button", to: Routes.live_dashboard_path(@conn, :home) %></li>
               <% end %>
 
-              <li class="nav-items__item">Hello, <%= @username %></li>
+              <li class="nav-items__item nav-items__item--welcome">Hello, <%= @username %>!</li>
 
               <li class="nav-items__item">
                 <%= form_for @conn, Routes.auth_path(@conn, :logout), fn _f -> %>
-                  <%= submit "Logout", class: "logout" %>
+                  <%= submit "Logout", class: "button" %>
                 <% end %>
               </li>
             <% end %>
@@ -35,8 +35,8 @@
       <%= @inner_content %>
     </main>
     <footer class="footer">
-      <p style="text-align: center;">Page Views: <%= @page_views %></p>
-      <p style="text-align: center;">Github Repo: <a href="https://github.com/eqmvii/phx_chat">eqmvii/phx_chat</a>
+      <p class="footer__copy">Page Views: <%= @page_views %></p>
+      <p class="footer__copy">Github Repo: <a href="https://github.com/eqmvii/phx_chat">eqmvii/phx_chat</a>
     </footer>
   </body>
 </html>
