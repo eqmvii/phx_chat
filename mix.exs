@@ -36,6 +36,7 @@ defmodule PhxChat.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:timex, "~> 3.6"},
       {:ecto_sql, "~> 3.4"},
       {:excoveralls, "~> 0.12.3", only: :test},
       {:floki, ">= 0.0.0", only: :test},

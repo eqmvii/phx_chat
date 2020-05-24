@@ -82,4 +82,16 @@ defmodule PhxChatWeb.ChatLive do
   def handle_info(%{event: "presence_diff"}, socket) do
     {:noreply, assign(socket, online_users: PresenceService.online_users())}
   end
+
+  ################
+  # View Helpers #
+  ################
+
+  # TODO ERIC test
+  def timestamp(time) do
+    case Timex.format(time, "%I:%M %P", :strftime) do
+      {:ok, time} -> time
+      _error -> "ERROR"
+    end
+  end
 end
