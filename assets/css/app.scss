@@ -1,5 +1,5 @@
 // Google Font
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Source+Code+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 // Vendor
 @import "../node_modules/nprogress/nprogress.css";
@@ -98,11 +98,8 @@ body {
 }
 
 .main-content {
-  // old colors: green text / dark background
-  // background-color: #242628;
-  // color: #15ff00;
-  background-color: #d7d8df;
-  font-family: 'Source Code Pro', monospace;
+  background-color: #e9f1f9;
+  font-family: 'Open Sans', sans-serif;
 
   font-size: 1.1em;
 
@@ -111,6 +108,8 @@ body {
 
   margin-top: 24px;
   margin-bottom: 24px;
+
+  padding: 6px;
 
   width: 100%;
   display: flex;
@@ -140,6 +139,7 @@ main.main-content div {
   margin-bottom: 0.5em;
 }
 
+// TODO ERIC: Issue: long chat messages screw up the flex resizing. So do long usernames. What's the true goal here?
 .chat__message-list {
   display: flex;
   list-style-type: none;
@@ -161,11 +161,24 @@ main.main-content div {
 .chat__input {
   padding: 6px;
   flex: 8;
+
+  border: none;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
 }
 
 .chat__submit {
   cursor: pointer;
   flex: 1;
+
+  background-color: #bdd9f5;
+  border: none;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.chat__submit:hover {
+  background-color: #d2e5f8;
 }
 
 .user-list {
