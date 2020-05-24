@@ -1,6 +1,6 @@
 <%= form_for @conn, Routes.auth_path(@conn, :auth), [class: "login-window"], fn f -> %>
   <%# TODO ERIC: Style error messages and add some kind of welcome to this screen %>
-  <%= text_input f, :username, class: "login-window__input", placeholder: "Choose a Username", maxlength: "18", autofocus: true %>
+  <%= text_input f, :username, class: "login-window__input", placeholder: "Choose a Username", maxlength: "16", autofocus: true %>
   <%= submit "Login", class: "login-window__submit" %>
 <% end %>
 

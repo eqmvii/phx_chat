@@ -85,7 +85,7 @@ body {
 }
 
 .header {
-  margin-top: 18px;
+  margin-top: 60px;
   width: 100%;
 }
 
@@ -97,6 +97,7 @@ body {
   background-color: $button-bg-color;
   text-decoration: none;
   font-weight: bold;
+  color: black;
 }
 
 .button:hover {
@@ -145,7 +146,7 @@ main.main-content div {
 }
 
 .chat {
-  max-width: 760px;
+  max-width: 750px;
   word-wrap: break-word;
 
   flex-grow: 4;
@@ -154,6 +155,7 @@ main.main-content div {
 .online-users {
   max-height: $chat-height;
   overflow-y: auto;
+  min-width: 200px;
 
   border-left: 1px solid #a5b5c5;
   padding-top: 6px;
@@ -235,14 +237,35 @@ main.main-content div {
   padding: 4px;
 }
 
-// TODO ERIC: Thoroughly revisit mobile styling
 // use columns on small devices (768 px tablet)
 @media (max-width: 768px) {
-  main.main-content div {
+  main.main-content div, .nav-items {
     flex-direction: column;
   }
 
-  .user-list {
-    flex-direction: row;
+  .header {
+    margin-top: 2px;
+  }
+
+  .nav-items__item {
+    margin-top: 8px;
+  }
+
+  .online-users {
+    display: none;
+  }
+
+  .chat__input {
+    border-radius: 0px;
+    border: 1px solid $border-color;
+  }
+
+  .chat__submit {
+    border-radius: 0px;
+    border: 1px solid black;
+    border-top: none;
+    padding: 6px;
+
+    margin-bottom: 12px;
   }
  }
