@@ -6,7 +6,12 @@
 @import "../vendor/normalize.css";
 
 // Variables
-$chat-height: 392px;
+$chat-height: 384px;
+$chat-bg-color: #fefafd;
+$border-color: #8409a9;
+$button-bg-color: $chat-bg-color;
+$button-hover-color: #e9daf8;
+$chat-input-border-radius: 18px;
 
 // Defaults for sanity
 * {
@@ -17,6 +22,10 @@ $chat-height: 392px;
 
 body, html {
   height: 100%;
+}
+
+input:focus {
+  outline: none;
 }
 
 // Login
@@ -32,11 +41,24 @@ body, html {
 
 .login-window__input {
   padding: 6px;
+
+  border: 1px solid $border-color;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .login-window__submit {
   cursor: pointer;
   padding: 6px;
+
+  background-color: $button-bg-color;
+  border-top: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  border-left: none;
+
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 // Chat
@@ -69,16 +91,16 @@ body {
 
 .button {
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 9px;
   padding: 6px 18px;
-  border: 1px solid #a5b5c5;
-  background-color: #bdd9f5;
+  border: 2px solid $border-color;
+  background-color: $button-bg-color;
   text-decoration: none;
   font-weight: bold;
 }
 
 .button:hover {
-  background-color: #d2e5f8;
+  background-color: $button-hover-color;
 }
 
 .nav-items {
@@ -98,12 +120,13 @@ body {
 }
 
 .main-content {
-  background-color: #e9f1f9;
+  background-color: $chat-bg-color;
   font-family: 'Open Sans', sans-serif;
 
   font-size: 1.1em;
 
-  border-radius: 3px;
+  border-radius: 9px;
+  border: 2px solid $border-color;
   box-shadow: 2px 2px 3px -2px rgb(34, 34, 36);
 
   margin-top: 24px;
@@ -122,6 +145,9 @@ main.main-content div {
 }
 
 .chat {
+  max-width: 760px;
+  word-wrap: break-word;
+
   flex-grow: 4;
 }
 
@@ -147,7 +173,8 @@ main.main-content div {
   overflow-y: scroll;
   flex-direction: column-reverse;
 
-  margin-bottom: 2px;
+  margin-bottom: 16px;
+  padding: 6px 8px 2px 8px;
 }
 
 .chat__message {
@@ -159,26 +186,35 @@ main.main-content div {
 }
 
 .chat__input {
-  padding: 6px;
+  padding: 6px 6px 6px 16px;
   flex: 8;
 
-  border: none;
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
+  border: 1px solid $border-color;
+  border-top-left-radius: $chat-input-border-radius;
+  border-bottom-left-radius: $chat-input-border-radius;
+
+  font-size: .85em;
+  line-height: 1.7em;
 }
 
 .chat__submit {
   cursor: pointer;
   flex: 1;
 
-  background-color: #bdd9f5;
-  border: none;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
+  background-color: $button-bg-color;
+  border-top: 1px solid $border-color;
+  border-right: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  border-left: none;
+
+  border-top-right-radius: $chat-input-border-radius;
+  border-bottom-right-radius: $chat-input-border-radius;
+
+  padding-right: 6px;
 }
 
 .chat__submit:hover {
-  background-color: #d2e5f8;
+  background-color: $button-hover-color;
 }
 
 .user-list {
