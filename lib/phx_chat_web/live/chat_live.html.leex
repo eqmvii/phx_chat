@@ -1,24 +1,26 @@
-<section>
-  <strong>Online Users:</strong>
+<section class="chat">
+  <ul id="chat-list" class="chat__message-list" phx-update="prepend">
+    <%= for message <- @message_list do %>
+      <li id="<%= message.id %>">[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
+    <% end %>
+  </ul>
+
+  <form phx-submit="send_chat">
+    <input type="text" class="chat__input" name="message_input" value="<%= @message %>" placeholder="Enter message" autocomplete="off"/>
+    <button type="submit" class="chat__submit" phx-disable-with="Sending...">Send Chat</button>
+  </form>
+</section>
+
+<section class="online-users">
+  <p><strong>Online Users:</strong></p>
+  <ul class="user-list">
     <%= for user <- @online_users do %>
       <%= live_component @socket, OnlineUserComponent, content: user %>
     <% end %>
+  </ul>
 </section>
 
-<hr />
 
-<ul id="chat-list" class="chat__message-list" phx-update="prepend">
-  <%= for message <- @message_list do %>
-    <li id="<%= message.id %>">[<%= message.inserted_at %>] <strong><%= message.user %>:</strong> <%= message.message %>
-  <% end %>
-</ul>
-
-<section class="chatbox">
-  <form phx-submit="send_chat">
-    <input type="text" name="message_input" value="<%= @message %>" placeholder="Enter message" autocomplete="off"/>
-    <button type="submit" phx-disable-with="Sending...">Send Chat</button>
-  </form>
-</section>
 
 
 

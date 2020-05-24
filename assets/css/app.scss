@@ -1,12 +1,8 @@
-// Custom
-@import "./chat.scss";
-
 // Vendor
 @import "../node_modules/nprogress/nprogress.css";
 @import "../vendor/normalize.css";
 
 // Defaults for sanity
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,3 +12,86 @@
 body, html {
   height: 100%;
 }
+
+// Layout
+
+body {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 960px;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  width: 100%;
+}
+
+.nav-items {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-items__item {
+
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+}
+
+.chat-wrapper {
+  width: 100%;
+  display: flex;
+}
+
+// the live chat inserts a div here, it needs to be a flex container too
+main.main-content div {
+  width: 100%;
+  display: flex;
+}
+
+.chat {
+  flex-grow: 4;
+}
+
+.online-users {
+  flex-grow: 1;
+}
+
+.user-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-list__username {
+  padding-left: 6px;
+}
+
+.chat__message-list {
+  display: flex;
+  list-style-type: none;
+  height: 485px;
+  overflow-y: scroll;
+  flex-direction: column-reverse;
+}
+
+.footer {
+  width: 100%;
+}
+
+// use columns on small devices (768 px tablet)
+@media (max-width: 768px) {
+  main.main-content div {
+    flex-direction: column;
+  }
+
+  .user-list {
+    flex-direction: row;
+  }
+ }

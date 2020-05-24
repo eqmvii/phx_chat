@@ -1,4 +1,4 @@
-<section class="phx-hero">
+<section class="login">
   <h2>Welcome! Choose a username</h2>
 
   <%= form_for @conn, Routes.auth_path(@conn, :auth), fn f -> %>

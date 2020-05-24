@@ -10,16 +10,18 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
-      <section class="container">
+    <header class="header">
+      <section>
         <nav role="navigation">
-          <ul>
+          <ul class="nav-items">
             <%= unless is_nil @username do %>
-              <li>Hi, <%= @username %></li>
               <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-                <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+                <li class="nav-items__item"><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
               <% end %>
-              <li>
+
+              <li class="nav-items__item">Hello, <%= @username %></li>
+
+              <li class="nav-items__item">
                 <%= form_for @conn, Routes.auth_path(@conn, :logout), fn _f -> %>
                   <%= submit "Logout", class: "logout" %>
                 <% end %>
@@ -29,8 +31,12 @@
         </nav>
       </section>
     </header>
-    <%= @inner_content %>
-    <p style="text-align: center;">Page Views: <%= @page_views %></p>
-    <p style="text-align: center;">Github Repo: <a href="https://github.com/eqmvii/phx_chat">eqmvii/phx_chat</a>
+    <main role="main" class="main-content">
+      <%= @inner_content %>
+    </main>
+    <footer class="footer">
+      <p style="text-align: center;">Page Views: <%= @page_views %></p>
+      <p style="text-align: center;">Github Repo: <a href="https://github.com/eqmvii/phx_chat">eqmvii/phx_chat</a>
+    </footer>
   </body>
 </html>
