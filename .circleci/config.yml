@@ -87,7 +87,6 @@ jobs:
           command: 'sed "s/:latest/:$(echo $CIRCLE_SHA1)/" kubernetes/deployment-phx-chat.yaml > hackjob_deployment.yaml && cat hackjob_deployment.yaml'
       - kubernetes/create-or-update-resource:
           get-rollout-status: true
-          # todo eric get --record working here
           resource-file-path: hackjob_deployment.yaml
           resource-name: deployments/phx-chat
           show-kubectl-command: true

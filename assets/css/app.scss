@@ -165,7 +165,6 @@ main.main-content div {
   margin-bottom: 0.5em;
 }
 
-// TODO ERIC: Issue: long chat messages screw up the flex resizing. So do long usernames. What's the true goal here?
 .chat__message-list {
   display: flex;
   list-style-type: none;
@@ -236,6 +235,7 @@ main.main-content div {
   padding: 4px;
 }
 
+// TODO ERIC: Thoroughly revisit mobile styling
 // use columns on small devices (768 px tablet)
 @media (max-width: 768px) {
   main.main-content div {
