@@ -1,7 +1,7 @@
 <section class="chat">
   <ul id="chat-list" class="chat__message-list" phx-update="prepend">
     <%= for message <- @message_list do %>
-      <li id="<%= message.id %>" class="chat__message"><%= timestamp(message.inserted_at) %> <strong><%= message.user %>:</strong> <%= message.message %>
+      <li id="<%= message.id %>" class="chat__message"><span class="chat__timestamp"><%= timestamp(message.inserted_at) %></span> <strong><%= message.user %>:</strong> <%= message.message %>
     <% end %>
   </ul>
 

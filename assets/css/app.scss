@@ -6,7 +6,7 @@
 @import "../vendor/normalize.css";
 
 // Variables
-$chat-height: 384px;
+$chat-height: 390px;
 $chat-bg-color: #fefafd;
 $border-color: #8409a9;
 $button-bg-color: $chat-bg-color;
@@ -167,7 +167,7 @@ main.main-content div {
   margin-bottom: 0.5em;
 }
 
-.chat__message-list {
+ul.chat__message-list {
   display: flex;
   list-style-type: none;
   height: $chat-height;
@@ -176,10 +176,15 @@ main.main-content div {
 
   margin-bottom: 16px;
   padding: 6px 8px 2px 8px;
+  line-height: 1.5em;
 }
 
 .chat__message {
   padding: 3px;
+}
+
+.chat__timestamp {
+  color: #695f68;
 }
 
 .chat__input-area {
