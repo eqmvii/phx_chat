@@ -1,3 +1,22 @@
+# Troubleshooting ip / dns issues
+
+containers can't talk to each other or the outside world? This did the trick, from linode customer support:
+
+```
+It looks like it was in fact an endpoint issue. You should be able to run this command and then see if the endpoints are properly updated:
+
+kubectl rollout restart -n kube-system deployment coredns
+Then you can run:
+
+kubectl get endpoints -n kube-system kube-dns
+
+The healthy output should show IP addresses associated with the 'endpoint' column.
+```
+
+# Tick: interactive pod
+
+kubectl run -it --rm --restart=Never alpine --image=alpine sh
+
 # Config
 
 To configure access:
